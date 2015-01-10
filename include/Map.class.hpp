@@ -25,7 +25,7 @@ public:
   static const unsigned int Y;
 
 protected:
-  Square***                 _square;
+  Square***                 _square; // _square[x][y][0]
 
 private:
 };

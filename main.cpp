@@ -7,14 +7,18 @@
 int main(void)
 {
   Game   game;
-  Player player;
-  Enemy  enemy[10];
 
   // while (game.frame() != Game::END)
   // {
     
   // }
-  (void)player;
-  (void)enemy;
+
+  // TEST ADD/DELETE ENEMY
+  game.spawnEnemy();
+  game.spawnEnemy();
+  game.spawnEnemy();
+  game.spawnEnemy();
+  game.deleteEnemy(*game.getEnemy(1));
+
   return 0;
 }

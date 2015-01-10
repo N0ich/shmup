@@ -1,6 +1,8 @@
 #ifndef __SQUARE_CLASS_HPP__
 # define __SQUARE_CLASS_HPP__
 
+#include "AEntity.class.hpp"
+
 class Square
 {
 public:
@@ -18,10 +20,11 @@ public:
   const unsigned int x;
   const unsigned int y;
 
-  // pixel
-  // entities
+  AEntity&           getEntity(void) const;
+  void               setEntity(AEntity& entity);
 
 protected:
+  AEntity*           _entity;
 
 private:
   Square(void);
