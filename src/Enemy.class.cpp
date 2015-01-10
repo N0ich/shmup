@@ -6,9 +6,10 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 12:41:39 by vrey              #+#    #+#             //
-//   Updated: 2015/01/10 14:49:19 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/10 16:21:32 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
+
 
 #include "Enemy.class.hpp"
 
@@ -19,9 +20,10 @@ Enemy::Enemy(void): AEntity()
     return;
 }
 
-Enemy::Enemy(unsigned int x, unsigned int y, std::string type, unsigned int mhp,
-			 unsigned int chp, unsigned int speed, unsigned int mspeed, 
-			 unsigned int dmg, unsigned int cooldown, unsigned int mcd):
+Enemy::Enemy(unsigned int x, unsigned int y, std::string type,
+			 unsigned int mhp, unsigned int chp, unsigned int speed,
+			 unsigned int mspeed, unsigned int dmg, unsigned int cooldown,
+			 unsigned int mcd):
 	AEntity()
 {
     this->x = x;

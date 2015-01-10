@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 11:58:52 by vrey              #+#    #+#             //
-//   Updated: 2015/01/10 14:59:30 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/10 16:27:24 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <string>
+#include "Pos.class.hpp"
 
 /*
 ** Entities abstract class
@@ -34,10 +35,12 @@ protected:
 	unsigned int	dmg;
 	unsigned int	cooldown;
 	unsigned int	mcd;
+	Pos				pos;
 
 public:
 	AEntity(void);
-	AEntity(unsigned int x, unsigned int y, std::string type, unsigned int mhp,
+	AEntity(unsigned int x, unsigned int y,
+			std::string type, unsigned int mhp,
 			unsigned int chp, unsigned int speed, unsigned int mspeed,
 			unsigned int dmg, unsigned int cooldown, unsigned int mcd);
 	AEntity(AEntity const & src);
@@ -46,7 +49,6 @@ public:
 	/*
 	** Getters
 	*/
-
 
 	unsigned int	getX(void) const;
 	unsigned int	getY(void) const;

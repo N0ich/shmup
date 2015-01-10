@@ -6,12 +6,13 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 12:41:39 by vrey              #+#    #+#             //
-//   Updated: 2015/01/10 15:01:12 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/10 16:22:49 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include "Player.class.hpp"
 
+#include "Square.class.hpp"
 
 Player::Player(void): AEntity()
 {
@@ -19,9 +20,10 @@ Player::Player(void): AEntity()
     return;
 }
 
-Player::Player(unsigned int x, unsigned int y, std::string type, unsigned int mhp,
-			   unsigned int chp, unsigned int speed, unsigned int mspeed,
-			   unsigned int dmg, unsigned int cooldown, unsigned int mcd):
+Player::Player(unsigned int x, unsigned int y, std::string type,
+			   unsigned int mhp, unsigned int chp, unsigned int speed,
+			   unsigned int mspeed, unsigned int dmg, unsigned int cooldown,
+			   unsigned int mcd):
 	AEntity()
 {
     this->x = x;
@@ -58,8 +60,8 @@ void		Player::move(int i)
     {
 		if (this->speed == this->mspeed)
 		{
-            this->x += i;
             this->speed = 0;
+			this->x += i;
         }
     }
 }

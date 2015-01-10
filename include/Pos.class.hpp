@@ -1,36 +1,38 @@
 // ************************************************************************** //
 //                                                                            //
 //                                                        :::      ::::::::   //
-//   Enemy.class.hpp                                    :+:      :+:    :+:   //
+//   Pos.class.hpp                                      :+:      :+:    :+:   //
 //                                                    +:+ +:+         +:+     //
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
-//   Created: 2015/01/10 12:41:47 by vrey              #+#    #+#             //
-//   Updated: 2015/01/10 16:22:28 by vrey             ###   ########.fr       //
+//   Created: 2015/01/10 16:04:24 by vrey              #+#    #+#             //
+//   Updated: 2015/01/10 16:32:28 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
-#ifndef ENEMY_CLASS_HPP
-# define ENEMY_CLASS_HPP
+#ifndef POS_CLASS_HPP
+# define POS_CLASS_HPP
 
-#include "AEntity.class.hpp"
+#include <iostream>
+#include <string>
 
-class Enemy: public AEntity {
+class Pos {
 
 private:
-
+	unsigned int		_x;
+	unsigned int		_y;	
 
 public:
-	Enemy(void);
-	Enemy(unsigned int x, unsigned int y, std::string type,
-		  unsigned int mhp, unsigned int chp, unsigned int speed,
-		  unsigned int mspeed, unsigned int dmg, unsigned int cooldown,
-		  unsigned int mcd);
-	Enemy(Enemy const & src);
-	~Enemy(void);
+	Pos();
+	Pos(int x, int y);
+	Pos(Pos const &pos);
+	~Pos(void);
 
+	unsigned int		getX(void) const;
+	unsigned int		getY(void) const;
 
-    Enemy &     operator=(Enemy const &);
+	Pos &	operator=(Pos const & src);
+
 };
 
 

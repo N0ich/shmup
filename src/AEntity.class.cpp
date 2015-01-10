@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 12:14:47 by vrey              #+#    #+#             //
-//   Updated: 2015/01/10 15:16:42 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/10 16:34:12 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -16,15 +16,18 @@ AEntity::AEntity(void):
 	x(0), y(0), type("Undefined"), mhp(0), chp(0), speed(0), mspeed(0), dmg(0),
 	cooldown(0), mcd(0)
 {
+	this->pos = Pos(x, y);
 	return;
 }
 
-AEntity::AEntity(unsigned int x, unsigned int y, std::string type, unsigned int mhp,
+AEntity::AEntity(unsigned int x, unsigned int y,
+				 std::string type, unsigned int mhp,
 				 unsigned int chp, unsigned int speed, unsigned int mspeed,
 				 unsigned int dmg, unsigned int cooldown, unsigned int mcd):
-	x(x), y(y), type(type), mhp(mhp), chp(chp), speed(speed), mspeed(mspeed), dmg(dmg),
-	cooldown(cooldown), mcd(mcd)
+	x(x), y(y), type(type), mhp(mhp), chp(chp), speed(speed),
+	mspeed(mspeed), dmg(dmg), cooldown(cooldown), mcd(mcd)
 {
+	this->pos = Pos(x, y);
 	return;
 }
 
@@ -40,6 +43,7 @@ AEntity::AEntity(AEntity const & src)
 	this->dmg = src.getDmg();
 	this->cooldown = src.getCooldown();
 	this->mcd = src.getMCD();
+	this->pos = Pos(this->x, this->y);
 	return;
 }
 
