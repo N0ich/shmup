@@ -13,9 +13,9 @@
 #ifndef PLAYER_CLASS_HPP
 # define PLAYER_CLASS_HPP
 
-#include "AEntities.class.hpp"
+#include "AEntity.class.hpp"
 
-class Player: public AEntities {
+class Player: public AEntity {
 
 private:
 

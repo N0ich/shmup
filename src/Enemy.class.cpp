@@ -13,7 +13,7 @@
 #include "Enemy.class.hpp"
 
 
-Enemy::Enemy(void): AEntities()
+Enemy::Enemy(void): AEntity()
 {
 	this->type = "Enemy";
     return;
@@ -21,7 +21,7 @@ Enemy::Enemy(void): AEntities()
 
 Enemy::Enemy(unsigned int x, unsigned int y, std::string type, unsigned int mhp,
 					 unsigned int chp, unsigned int speed, unsigned int dmg):
-	AEntities()
+	AEntity()
 {
     this->x = x;
     this->y = y;
@@ -33,7 +33,7 @@ Enemy::Enemy(unsigned int x, unsigned int y, std::string type, unsigned int mhp,
     return;
 }
 
-Enemy::Enemy(Enemy const & src): AEntities()
+Enemy::Enemy(Enemy const & src): AEntity()
 {
     this->x = src.getX();
     this->y = src.getY();

@@ -1,7 +1,7 @@
 // ************************************************************************** //
 //                                                                            //
 //                                                        :::      ::::::::   //
-//  AEntities.class.hpp                                 :+:      :+:    :+:   //
+//  AEntity.class.hpp                                 :+:      :+:    :+:   //
 //                                                    +:+ +:+         +:+     //
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
@@ -10,8 +10,8 @@
 //                                                                            //
 // ************************************************************************** //
 
-#ifndef AENTITIES_CLASS_HPP
-# define AENTITIES_CLASS_HPP
+#ifndef AENTITY_CLASS_HPP
+# define AENTITY_CLASS_HPP
 
 #include <iostream>
 #include <string>
@@ -20,7 +20,7 @@
 ** Entities abstract class
 */
 
-class AEntities {
+class AEntity {
 
 protected:
 
@@ -34,11 +34,11 @@ protected:
 //	Projectile		weapon;
 
 public:
-	AEntities(void);
-	AEntities(unsigned int x, unsigned int y, std::string type, unsigned int mhp,
+	AEntity(void);
+	AEntity(unsigned int x, unsigned int y, std::string type, unsigned int mhp,
 			  unsigned int chp, unsigned int speed, unsigned int dmg);
-	AEntities(AEntities const & src);
-	~AEntities(void);
+	AEntity(AEntity const & src);
+	~AEntity(void);
 
 	unsigned int	getX(void) const;
 	unsigned int	getY(void) const;
@@ -54,7 +54,7 @@ public:
 	void			shoot(void);
 	void			takeDamage(unsigned int);
 
-	AEntities &		operator=(AEntities const &);
+	AEntity &		operator=(AEntity const &);
 
 };
 

@@ -13,9 +13,9 @@
 #ifndef ENEMY_CLASS_HPP
 # define ENEMY_CLASS_HPP
 
-#include "AEntities.class.hpp"
+#include "AEntity.class.hpp"
 
-class Enemy: public AEntities {
+class Enemy: public AEntity {
 
 private:
 

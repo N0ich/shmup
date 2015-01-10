@@ -13,7 +13,7 @@
 #include "Player.class.hpp"
 
 
-Player::Player(void): AEntities()
+Player::Player(void): AEntity()
 {
 	this->type = "Player";
     return;
@@ -21,7 +21,7 @@ Player::Player(void): AEntities()
 
 Player::Player(unsigned int x, unsigned int y, std::string type, unsigned int mhp,
 					 unsigned int chp, unsigned int speed, unsigned int dmg):
-	AEntities()
+	AEntity()
 {
     this->x = x;
     this->y = y;
@@ -33,7 +33,7 @@ Player::Player(unsigned int x, unsigned int y, std::string type, unsigned int mh
     return;
 }
 
-Player::Player(Player const & src): AEntities()
+Player::Player(Player const & src): AEntity()
 {
     this->x = src.getX();
     this->y = src.getY();
