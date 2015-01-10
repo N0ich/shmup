@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 12:14:47 by vrey              #+#    #+#             //
-//   Updated: 2015/01/10 16:38:51 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/10 17:51:29 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -82,6 +82,18 @@ bool			AEntity::shoot(void)
 		}
 	}
 	return false;
+}
+
+void			AEntity::takeDamage(unsigned int i)
+{
+	if (this->chp - i <= 0)
+	{
+		this->chp = 0;
+	}
+	else
+	{
+		this->chp -= i;
+	}
 }
 
 /*
