@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 16:04:13 by vrey              #+#    #+#             //
-//   Updated: 2015/01/10 16:35:50 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/10 17:04:36 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -41,6 +41,16 @@ unsigned int		Pos::getX(void) const
 unsigned int		Pos::getY(void) const
 {
 	return this->_y;
+}
+
+void				Pos::setX(unsigned int i)
+{
+	this->_x = i;
+}
+
+void				Pos::setY(unsigned int i)
+{
+	this->_y = i;
 }
 
 Pos &				Pos::operator=(Pos const & src)

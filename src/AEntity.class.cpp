@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 12:14:47 by vrey              #+#    #+#             //
-//   Updated: 2015/01/10 16:34:12 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/10 16:38:51 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -65,6 +65,8 @@ void			AEntity::move(void)
 		{
 			this->y--;
 			this->speed = 0;
+			this->pos.setX(this->x);
+			this->pos.setY(this->y);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 16:04:24 by vrey              #+#    #+#             //
-//   Updated: 2015/01/10 16:32:28 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/10 16:41:33 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -30,6 +30,9 @@ public:
 
 	unsigned int		getX(void) const;
 	unsigned int		getY(void) const;
+
+	void				setX(unsigned int i);
+	void				setY(unsigned int i);
 
 	Pos &	operator=(Pos const & src);
 

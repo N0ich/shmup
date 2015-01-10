@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 12:41:39 by vrey              #+#    #+#             //
-//   Updated: 2015/01/10 16:22:49 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/10 17:02:52 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -62,6 +62,8 @@ void		Player::move(int i)
 		{
             this->speed = 0;
 			this->x += i;
+			this->pos.setX(this->x);
+			this->pos.setY(this->y);
         }
     }
 }
