@@ -72,3 +72,8 @@ Player::~Player(void)
 {
 	return;
 }
+
+char         Player::toChar(void) const
+{
+    return '^';
+}

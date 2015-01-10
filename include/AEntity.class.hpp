@@ -44,7 +44,7 @@ public:
 			unsigned int chp, unsigned int speed, unsigned int mspeed,
 			unsigned int dmg, unsigned int cooldown, unsigned int mcd);
 	AEntity(AEntity const & src);
-	~AEntity(void);
+	virtual ~AEntity(void);
 
 	/*
 	** Getters
@@ -78,6 +78,8 @@ public:
 	void			takeDamage(unsigned int);
 
 	AEntity &		operator=(AEntity const &);
+
+	virtual char toChar(void) const = 0;
 
 };
 

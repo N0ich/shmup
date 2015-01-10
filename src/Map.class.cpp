@@ -1,5 +1,4 @@
 #include "Map.class.hpp"
-#include <iostream>
 
 // constructors + destructors
 
@@ -62,3 +61,23 @@ Square&                Map::getSquare(const unsigned int x, const unsigned int y
 {
   return this->_square[x][y][0];
 }
+
+const Square&          Map::getSquare(const unsigned int x, const unsigned int y) const
+{
+  return this->_square[x][y][0];
+}
+
+#include <ncurses.h>
+std::ostream&               operator<<(std::ostream& stream, const Map& obj)
+{
+  for (unsigned int y = 0; y < Map::Y; ++y)
+  {
+    (void)wmove(stdscr, y, 0);
+    (void)wrefresh(stdscr);
+    for (unsigned int x = 0; x < Map::X; ++x) {
+      stream << obj.getSquare(x, y);
+    }
+  }
+  return stream;
+}
+

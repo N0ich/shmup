@@ -1,5 +1,4 @@
 #include "Square.class.hpp"
-#include <iostream>
 
 // constructors + destructors
 
@@ -45,4 +44,16 @@ AEntity&              Square::getEntity(void) const
 void                  Square::setEntity(AEntity& entity)
 {
   this->_entity = &entity;
+}
+
+#include <ncurses.h>
+std::ostream&               operator<<(std::ostream& stream, const Square& obj)
+{
+  char ch = ' ';
+
+  if (&obj.getEntity() != NULL) {
+    ch = obj.getEntity().toChar();
+  }
+  waddch(stdscr, ch);
+  return stream;
 }

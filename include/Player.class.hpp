@@ -32,6 +32,8 @@ public:
 	void		move(int i);
 
     Player &     operator=(Player const &);
+
+    char         toChar(void) const;
 };
 
 

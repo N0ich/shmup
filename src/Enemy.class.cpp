@@ -58,3 +58,8 @@ Enemy::~Enemy(void)
 {
 	return;
 }
+
+char         Enemy::toChar(void) const
+{
+    return '@';
+}

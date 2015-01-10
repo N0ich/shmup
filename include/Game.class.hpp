@@ -4,6 +4,7 @@
 #include "Map.class.hpp"
 #include "Player.class.hpp"
 #include "Enemy.class.hpp"
+#include <iostream>
 
 class Game
 {
@@ -29,6 +30,8 @@ public:
   void                      updateCycle(void);
 
   Player&                   getPlayer(void);
+  Map&                      getMap(void);
+  const Map&                getMap(void) const;
 
   Enemy*                    getEnemy(unsigned int idx) const;
   unsigned int              getEnemyIdx(Enemy& enemy) const;
@@ -47,5 +50,7 @@ private:
   static const unsigned int CYCLE_MAX;
   static const unsigned int ENEMY_MAX;
 };
+
+std::ostream&               operator<<(std::ostream& stream, const Game& obj);
 
 #endif

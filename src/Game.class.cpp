@@ -1,5 +1,4 @@
 #include "Game.class.hpp"
-#include <iostream>
 
 // constructors + destructors
 
@@ -14,6 +13,14 @@ Game::Game(void) :
   for (unsigned int n = 0; n < Game::ENEMY_MAX; ++n) {
     this->_enemy[n] = NULL;
   }
+
+  // unsigned int x = Map::X / 2;
+  // unsigned int y = Map::Y / 2;
+
+  // this->_player.setX(Map::X / 2);
+  // this->_player.setX(Map::Y / 2);
+  // this->getMap().getSquare(x, y).setEntity(*enemy);
+
   #ifdef DEBUG
   std::cout << "[CONSTRUCTED] Game()" << std::endl;
   #endif
@@ -70,7 +77,7 @@ void               Game::spawnEnemy(void)
   }
   enemy = new Enemy();
   this->_enemy[this->_nb_enemy++] = enemy;
-  // this->getSquare(x, y).setEntity(*enemy);
+  // this->getMap().getSquare(x, y).setEntity(*enemy);
 }
 
 void               Game::deleteEnemy(Enemy& enemy)
@@ -83,11 +90,12 @@ void               Game::deleteEnemy(Enemy& enemy)
   }
   // this->getSquare(x, y).setEntity(NULL);
   delete this->_enemy[idx];
-  this->_enemy[idx++] = NULL;
-  for (; idx < Game::ENEMY_MAX; ++idx) {
-    this->_enemy[idx - 1] = this->_enemy[idx];
-  }
   this->_enemy[idx] = NULL;
+  while (++idx < this->_nb_enemy)
+  {
+    this->_enemy[idx - 1] = this->_enemy[idx];
+    this->_enemy[idx] = NULL;
+  }
   --this->_nb_enemy;
 }
 
@@ -111,6 +119,16 @@ Player&            Game::getPlayer(void)
   return this->_player;
 }
 
+Map&               Game::getMap(void)
+{
+  return this->_map;
+}
+
+const Map&         Game::getMap(void) const
+{
+  return this->_map;
+}
+
 Enemy*             Game::getEnemy(unsigned int idx) const
 {
   return this->_enemy[idx];
@@ -126,4 +144,12 @@ unsigned int       Game::getEnemyIdx(Enemy& enemy) const
     }
   }
   return Game::ENEMY_MAX;
+}
+
+std::ostream&      operator<<(std::ostream& stream, const Game& obj)
+{
+  // @todo: show score
+  stream << obj.getMap();
+  // @todo: show additionnal infos
+  return stream;
 }

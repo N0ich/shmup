@@ -14,6 +14,7 @@
 # define __SQUARE_CLASS_HPP__
 
 #include "AEntity.class.hpp"
+#include <iostream>
 
 class Square
 {
@@ -42,5 +43,7 @@ private:
   Square(void);
 
 };
+
+std::ostream&               operator<<(std::ostream& stream, const Square& obj);
 
 #endif

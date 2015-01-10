@@ -31,6 +31,8 @@ public:
 
 
     Enemy &     operator=(Enemy const &);
+
+    char        toChar(void) const;
 };
 
 
