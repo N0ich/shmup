@@ -9,6 +9,10 @@
 // extern "C"
 // {
   #include <ncurses.h>
+  #include <sys/select.h>
+  #include <sys/types.h>
+  #include <sys/uio.h>
+  #include <unistd.h>
 // }
 
 typedef void (*f_atexit)(void);
@@ -27,23 +31,27 @@ bool initNcurses(void)
     has_color = true;
   }
 
-  // if (cbreak() == ERR) { // disable buffering + kill
-  //   return false;
-  // }
+  if (cbreak() == ERR) { // disable buffering + disable DEL
+    return false;
+  }
 
-  // if (noecho() == ERR) { // disabled echo
-  //   return false;
-  // }
+  if (noecho() == ERR) { // disable echo
+    return false;
+  }
 
-  // if (nonl() == ERR) { // disable newline on input
-  //   return false;
-  // }
+  if (nonl() == ERR) { // disable newline on input
+    return false;
+  }
 
-  // if (keypad(tdscr, true) == ERR) { // enable keypads input
-  //   return false;
-  // }
+  if (keypad(stdscr, true) == ERR) { // enable keypads input
+    return false;
+  }
 
   if (curs_set(0) == ERR) { // invisible cursor
+    return false;
+  }
+
+  if (nodelay(stdscr, true) == ERR) { // input non-blocking
     return false;
   }
 
@@ -54,16 +62,28 @@ bool initNcurses(void)
 void startGame(void)
 {
   Game game;
+  int  key;
 
-  (void)clear();
-  std::cout << game;
   do
   {
-    // (void)clear();
-    // DO ACTIONS
-    // std::cout << game;
-  } while (42);
-  // } while (game.frame() != Game::END);
+    key = wgetch(stdscr);
+    if (key == KEY_END || key == KEY_EXIT) {
+      exit(0);
+    }
+
+    // IN A NEAR FUTURE HANDLE THIS IN AN ARRAY OF ORDERS
+    if (key == KEY_LEFT || key == KEY_RIGHT)
+    {
+      // ORDER MOVE SHIP
+    }
+
+    if (true) // GAME STATE CHANGED
+    {
+      (void)clear();
+      std::cout << game;
+      // SET GAME STATE UNCHANGED
+    }
+  } while (game.frame() != Game::END);
 }
 
 int main(void)
@@ -72,7 +92,7 @@ int main(void)
 
   if (!initNcurses())
   {
-    std::cout << "Could not initialize ncurses"<< std::endl;
+    std::cout << "Could not initialize ncurses" << std::endl;
     return errno;
   }
   startGame();

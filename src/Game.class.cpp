@@ -14,12 +14,13 @@ Game::Game(void) :
     this->_enemy[n] = NULL;
   }
 
+  // @todo: really do it, for real
   // unsigned int x = Map::X / 2;
   // unsigned int y = Map::Y / 2;
 
   // this->_player.setX(Map::X / 2);
   // this->_player.setX(Map::Y / 2);
-  // this->getMap().getSquare(x, y).setEntity(*enemy);
+  this->getMap().getSquare(Map::X / 2, Map::Y / 2).setEntity(this->_player);
 
   #ifdef DEBUG
   std::cout << "[CONSTRUCTED] Game()" << std::endl;
@@ -146,6 +147,7 @@ unsigned int       Game::getEnemyIdx(Enemy& enemy) const
   return Game::ENEMY_MAX;
 }
 
+// @todo: move the actual stuff in an output function (which handles ncurses and raw as DEBUG)
 std::ostream&      operator<<(std::ostream& stream, const Game& obj)
 {
   // @todo: show score
