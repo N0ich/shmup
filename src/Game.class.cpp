@@ -12,7 +12,6 @@
 
 #include "Game.class.hpp"
 #include "Pos.class.hpp"
-#include <ncurses.h>
 #include <cstdlib>
 
 // constructors + destructors
@@ -118,7 +117,6 @@ bool               Game::frame(void)
     }
     this->_player.setOrder(NONE);
   }
-  //TEST
   this->spawnEnemy();
   for (unsigned int i = 0; i < this->_nb_enemy; i ++)
   {
@@ -299,11 +297,21 @@ void               Game::deleteProjectile(Projectile & projectile)
   --this->_nb_projectile;
 }
 
-void               Game::output(void)
+void               Game::output(WINDOW *win)
 {
+  (void)wmove(win, 0, 0);
+
+  // int curs_x = 0;
+  // int curs_y = 0;
+
+  // getyx(win, curs_y, curs_x);
+  // (void)wmove(win, y, 0);
+
+  // ++this->_score;
+  // (void)wprintw(win, "SCORE %d           HP %d", this->_score, this->_player.getCHP());
+
+  this->getMap().output(win);
   this->_refresh = false;
-  (void)wmove(stdscr, 0, 0);
-  this->getMap().output();
 }
 
 // GETTERS + SETTERS

@@ -11,9 +11,8 @@
 // ************************************************************************** //
 
 #include "Projectile.class.hpp"
-#include <ncurses.h>
 
-const short  Projectile::COLOR_PAIR = 2;
+const short  Projectile::COLOR_PAIR = 3;
 
 // Projectile::Projectile(void) :
 //      AEntity()
@@ -51,9 +50,9 @@ bool		Projectile::move(void)
     return false;
 }
 
-void        Projectile::output(void) const
+void        Projectile::output(WINDOW *win) const
 {
-    // attron(COLOR_PAIR(Projectile::COLOR_PAIR));
-    (void)waddch(stdscr, '|');
-    // attroff(COLOR_PAIR(Projectile::COLOR_PAIR));
+    attron(COLOR_PAIR(Projectile::COLOR_PAIR));
+    (void)waddch(win, '|');
+    attroff(COLOR_PAIR(Projectile::COLOR_PAIR));
 }

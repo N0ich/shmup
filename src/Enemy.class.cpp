@@ -11,7 +11,6 @@
 // ************************************************************************** //
 
 #include "Enemy.class.hpp"
-#include <ncurses.h>
 
 const short  Enemy::COLOR_PAIR = 2;
 
@@ -46,9 +45,9 @@ Enemy::~Enemy(void)
 	return;
 }
 
-void         Enemy::output(void) const
+void         Enemy::output(WINDOW *win) const
 {
-    // attron(COLOR_PAIR(Enemy::COLOR_PAIR));
-    (void)waddch(stdscr, '@');
-    // attroff(COLOR_PAIR(Enemy::COLOR_PAIR));
+    attron(COLOR_PAIR(Enemy::COLOR_PAIR));
+    (void)waddch(win, '@');
+    attroff(COLOR_PAIR(Enemy::COLOR_PAIR));
 }

@@ -1,5 +1,4 @@
 #include "Square.class.hpp"
-#include <ncurses.h>
 
 // CONSTRUCTORS + DESTRUCTORS
 
@@ -37,13 +36,13 @@ Square&               Square::operator=(const Square& src)
 
 // FUNCTIONS
 
-void                  Square::output(void) const
+void                  Square::output(WINDOW *win) const
 {
   if (this->getEntity() != NULL) {
-    this->getEntity()->output();
+    this->getEntity()->output(win);
   }
   else {
-    (void)waddch(stdscr, ' ');
+    (void)waddch(win, ' ');
   }
 }
 

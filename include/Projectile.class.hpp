@@ -27,7 +27,7 @@ public:
 	Projectile &              operator=(Projectile const &);
 
 	bool				move(void);
-	void                output(void) const;
+	void                output(WINDOW *win) const;
 
   static const short   COLOR_PAIR;
 private:

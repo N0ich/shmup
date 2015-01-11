@@ -12,7 +12,6 @@
 
 #include "Player.class.hpp"
 #include "Map.class.hpp"
-#include <ncurses.h>
 
 const short  Player::COLOR_PAIR = 1;
 
@@ -73,9 +72,9 @@ EPlayerOrder Player::getOrder(void) const
     return this->_order;
 }
 
-void         Player::output(void) const
+void         Player::output(WINDOW *win) const
 {
-    // attron(COLOR_PAIR(Player::COLOR_PAIR));
-    (void)waddch(stdscr, '^');
-    // attroff(COLOR_PAIR(Player::COLOR_PAIR));
+    attron(COLOR_PAIR(Player::COLOR_PAIR));
+    (void)waddch(win, '^');
+    attroff(COLOR_PAIR(Player::COLOR_PAIR));
 }

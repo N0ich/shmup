@@ -18,7 +18,7 @@
 
 typedef void (*f_atexit)(void);
 
-bool initNcurses(void)
+bool initNcurses(WINDOW** score_win, WINDOW** game_win)
 {
 
 
@@ -27,14 +27,15 @@ bool initNcurses(void)
   }
   (void)atexit((f_atexit)&endwin); // clear ncurses at exit
 
-  if (has_colors() && start_color() == ERR)
-  {
-    if (
-      init_pair(Player::COLOR_PAIR, COLOR_GREEN, COLOR_BLACK) == ERR || 
-      init_pair(Enemy::COLOR_PAIR, COLOR_RED, COLOR_BLACK) == ERR
+  if (has_colors() && start_color() == ERR) {
+    return false;
+  }
+
+  if (
+    init_pair(Player::COLOR_PAIR, COLOR_GREEN, COLOR_BLACK) == ERR || 
+    init_pair(Enemy::COLOR_PAIR, COLOR_RED, COLOR_BLACK) == ERR ||
+    init_pair(Projectile::COLOR_PAIR, COLOR_YELLOW, COLOR_BLACK) == ERR
     ) {
-      return false;
-    }
     return false;
   }
 
@@ -66,14 +67,24 @@ bool initNcurses(void)
     return false;
   }
 
+  if ((*score_win = newwin(1, Map::X + 1, 1, 1)) == NULL) {
+    return false;
+  }
+
+  if ((*game_win = newwin(Map::Y + 1, Map::X + 1, 2, 1)) == NULL) {
+    return false;
+  }
+
   return true;
 }
 
-void startGame(void)
+void startGame(WINDOW* score_win, WINDOW* game_win)
 {
   Game game;
   int  key;
 
+  (void)score_win;
+  (void)game_win;
   do
   {
     { // GAME HANDLER
@@ -94,8 +105,14 @@ void startGame(void)
 
     if (game.needRefresh())
     {
-      (void)clear();
-      game.output();
+      (void)wmove(score_win, 0, 0);
+      // (void)wprintw(score_win, "SCORE %d           HP %d\n", game.getScore(), game.getPlayer().getCHP());
+
+      (void)wborder(game_win, '|', '|', '-', '-', '+', '+', '+', '+');
+      game.output(game_win);
+
+      (void)wrefresh(game_win);
+      (void)wrefresh(score_win);
     }
     usleep(5000);
     key = 0;
@@ -104,13 +121,16 @@ void startGame(void)
 
 int main(void)
 {
+  WINDOW* score_win;
+  WINDOW* game_win;
+
   srand(time(NULL));
-  if (!initNcurses())
+  if (!initNcurses(&score_win, &game_win))
   {
     std::cout << "Could not fully initialize ncurses" << std::endl;
     return errno;
   }
-  startGame();
+  startGame(score_win, game_win);
 
   return 0;
 }

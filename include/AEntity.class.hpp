@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <string>
+#include <ncurses.h>
 #include "Pos.class.hpp"
 
 /*
@@ -83,7 +84,7 @@ public:
 
 	AEntity &		  operator=(AEntity const &);
 
-	virtual void  output(void) const = 0;
+	virtual void  output(WINDOW *win) const = 0;
 
 private:
   AEntity(void);

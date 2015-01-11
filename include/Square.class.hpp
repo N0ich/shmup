@@ -15,6 +15,7 @@
 
 #include "AEntity.class.hpp"
 #include "Pos.class.hpp"
+#include <ncurses.h>
 
 class Square
 {
@@ -29,7 +30,7 @@ public:
 
   // functions
 
-  void                  output(void) const;
+  void                  output(WINDOW *win) const;
 
   // getters + setters
   const Pos          pos;

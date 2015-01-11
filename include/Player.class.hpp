@@ -37,7 +37,7 @@ public:
 	Player &             operator=(Player const &);
 
 	void		             move(int i);
-	void                 output(void) const;
+	void                 output(WINDOW *win) const;
 
 	void                 setOrder(const EPlayerOrder order);
 	EPlayerOrder         getOrder(void) const;

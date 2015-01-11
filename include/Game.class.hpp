@@ -5,6 +5,7 @@
 #include "Player.class.hpp"
 #include "Enemy.class.hpp"
 #include "Projectile.class.hpp"
+#include <ncurses.h>
 
 class Game
 {
@@ -27,7 +28,7 @@ public:
   void                      spawnProjectile(void);
   void                      deleteProjectile(Projectile & projectile);
 
-  void                      output(void);
+  void                      output(WINDOW *win);
 
   // getters + setters
 
@@ -65,7 +66,7 @@ protected:
   unsigned int              _nb_enemy;
   unsigned int              _nb_projectile;
   Enemy**                   _enemy; // _enemy[n][0]
-  Projectile**				_projectile;
+  Projectile**				      _projectile;
 
 private:
   static const unsigned int CYCLE_MAX;

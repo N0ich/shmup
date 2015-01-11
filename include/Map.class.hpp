@@ -3,6 +3,7 @@
 
 #include "Square.class.hpp"
 #include <cstddef>
+#include <ncurses.h>
 
 class Map
 {
@@ -17,7 +18,7 @@ public:
 
   // FUNCTIONS
 
-  void                      output(void) const;
+  void                      output(WINDOW *win) const;
 
   // getters + setters
 

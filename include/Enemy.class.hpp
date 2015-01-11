@@ -28,7 +28,7 @@ public:
 
   Enemy &              operator=(Enemy const &);
 
-  void                 output(void) const;
+  void                 output(WINDOW *win) const;
 
   static const short   COLOR_PAIR;
 };

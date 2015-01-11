@@ -1,5 +1,4 @@
 #include "Map.class.hpp"
-#include <ncurses.h>
 
 // constructors + destructors
 
@@ -56,19 +55,17 @@ Map&                   Map::operator=(const Map& src)
 
 // FUNCTIONS
 
-void                   Map::output(void) const
+void                   Map::output(WINDOW *win) const
 {
   // int curs_x = 0;
   // int curs_y = 0;
 
-  // (void)curs_x;
-  // (void)curs_y;
   for (unsigned int y = 0; y < Map::Y; ++y)
   {
-    // getyx(stdscr, curs_y, curs_x);
-    (void)wmove(stdscr, y, 0);
+    // getyx(win, curs_y, curs_x);
+    (void)wmove(win, y, 0);
     for (unsigned int x = 0; x < Map::X; ++x) {
-      this->getSquare(Pos(x, y)).output();
+      this->getSquare(Pos(x, y)).output(win);
     }
   }
 }
