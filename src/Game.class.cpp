@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/11 15:34:29 by vrey              #+#    #+#             //
-//   Updated: 2015/01/11 19:08:31 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/11 19:34:48 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -138,11 +138,20 @@ bool               Game::frame(void)
       {
         // RESET SQUARE
         this->getMap().getSquare(old_pos).setEntity(NULL);
-        if (this->getMap().getSquare(enemy->getpos()).getEntity() != NULL)
+        if (this->getMap().getSquare(enemy->getPos()).getEntity() != NULL)
         { // COLLISION
-          this->deleteEnemy(*enemy);
-          --i;
-          do_refresh = false;
+			if (this->getMap().getSquare(enemy->getPos()).getEntity()->getType() == "Projectile")
+			{
+				Projectile * entity = (Projectile *)this->getMap().getSquare(enemy->getPos()).getEntity();
+				this->getMap().getSquare(enemy->getPos()).setEntity(NULL);
+				this->deleteProjectile(*entity);
+			}
+			else if (this->getMap().getSquare(enemy->getPos()).getEntity()->getType() == "Player")
+				// Remove HP here or finish the game
+			{};
+			this->deleteEnemy(*enemy);
+			--i;
+			do_refresh = false;
         }
         else
         { // MOVE
@@ -178,9 +187,12 @@ bool               Game::frame(void)
         this->getMap().getSquare(old_pos).setEntity(NULL);
         if (this->getMap().getSquare(projectile->getPos()).getEntity() != NULL)
         { // COLLISION
-          this->deleteProjectile(*projectile);
-          --j;
-		  do_refresh = false;
+			Enemy * entity = (Enemy *)this->getMap().getSquare(projectile->getPos()).getEntity();
+			this->getMap().getSquare(projectile->getPos()).setEntity(NULL);
+			this->deleteEnemy(*entity);
+			this->deleteProjectile(*projectile);
+			--j;
+			do_refresh = false;
         }
         else
         { // MOVE
