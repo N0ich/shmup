@@ -4,6 +4,7 @@
 #include "Map.class.hpp"
 #include "Player.class.hpp"
 #include "Enemy.class.hpp"
+#include "Projectile.class.hpp"
 
 class Game
 {
@@ -23,6 +24,9 @@ public:
   void                      spawnEnemy(void);
   void                      deleteEnemy(Enemy& enemy);
 
+  void                      spawnProjectile(void);
+  void                      deleteProjectile(Projectile & projectile);
+
   void                      output(void);
 
   // getters + setters
@@ -38,6 +42,9 @@ public:
 
   Enemy*                    getEnemy(unsigned int idx) const;
   unsigned int              getEnemyIdx(Enemy& enemy) const;
+
+  Projectile*               getProjectile(unsigned int idx) const;
+  unsigned int              getProjectileIdx(Projectile & projectile) const;
 
   bool                      needRefresh(void) const;
 
@@ -56,11 +63,14 @@ protected:
 
   Player                    _player;
   unsigned int              _nb_enemy;
+  unsigned int              _nb_projectile;
   Enemy**                   _enemy; // _enemy[n][0]
+  Projectile**				_projectile;
 
 private:
   static const unsigned int CYCLE_MAX;
   static const unsigned int ENEMY_MAX;
+  static const unsigned int PROJECTILE_MAX;
 };
 
 #endif

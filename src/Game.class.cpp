@@ -1,3 +1,15 @@
+// ************************************************************************** //
+//                                                                            //
+//                                                        :::      ::::::::   //
+//   Game.class.cpp                                     :+:      :+:    :+:   //
+//                                                    +:+ +:+         +:+     //
+//   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
+//                                                +#+#+#+#+#+   +#+           //
+//   Created: 2015/01/11 15:34:29 by vrey              #+#    #+#             //
+//   Updated: 2015/01/11 16:45:05 by vrey             ###   ########.fr       //
+//                                                                            //
+// ************************************************************************** //
+
 #include "Game.class.hpp"
 #include "Pos.class.hpp"
 #include <ncurses.h>
@@ -7,15 +19,22 @@
 
 const unsigned int Game::CYCLE_MAX = 10;
 const unsigned int Game::ENEMY_MAX = 8;
+const unsigned int Game::PROJECTILE_MAX = 1;
 const bool         Game::END       = false;
 
 Game::Game(void) :
-  _map(), _cycle(0), _refresh(true), _score(0), _player(), _nb_enemy(0)
+	_map(), _cycle(0), _refresh(true), _score(0), _player(),
+	_nb_enemy(0), _nb_projectile(0)
 {
   this->_enemy = new Enemy*[Game::ENEMY_MAX];
   for (unsigned int n = 0; n < Game::ENEMY_MAX; ++n) {
     this->_enemy[n] = NULL;
   }
+
+  this->_projectile = new Projectile*[Game::PROJECTILE_MAX];
+  for (unsigned int k = 0; k < Game::PROJECTILE_MAX; ++k) {
+    this->_projectile[k] = NULL;
+  } 
 
   this->getMap().getSquare(this->_player.getPos()).setEntity(&this->_player);
 
@@ -25,12 +44,17 @@ Game::Game(void) :
 }
 
 Game::Game(const Game& src) :
-  _map(), _cycle(0), _refresh(true), _score(0), _player(), _nb_enemy(0)
+  _map(), _cycle(0), _refresh(true), _score(0), _player(),
+  _nb_enemy(0), _nb_projectile(0)
 {
   (void)src;
+  this->_projectile = new Projectile*[Game::PROJECTILE_MAX];
   this->_enemy = new Enemy*[Game::ENEMY_MAX];
   for (unsigned int n = 0; n < Game::ENEMY_MAX; ++n) {
     this->_enemy[n] = NULL;
+  }
+  for (unsigned int k = 0; k < Game::PROJECTILE_MAX; ++k) {
+    this->_projectile[k] = NULL;
   }
   #ifdef DEBUG
   std::cout << "[CONSTRUCTED] Game()" << std::endl;
@@ -43,6 +67,10 @@ Game::~Game(void)
     delete this->_enemy[n];
   }
   delete this->_enemy;
+  for (unsigned int k = 0; k < Game::PROJECTILE_MAX; ++k) {
+    delete this->_projectile[k];
+  }
+  delete this->_projectile;
   #ifdef DEBUG
   std::cout << "[DESTRUCTED] Game()" << std::endl;
   #endif
@@ -128,7 +156,41 @@ bool               Game::frame(void)
       enemy->refreshMove();
     }
   }
-  // DO ACTIONS
+
+  this->spawnProjectile();
+  for (unsigned int j = 0; j < this->_nb_projectile; j ++)
+  {
+    Projectile*  projectile = this->getProjectile(j);
+    Pos          old_pos    = projectile->getPos();
+
+    if (projectile->move() == true)
+    {
+      if (projectile->getY() <= 0)
+      { // CHECK IF OUT OF THE MAP
+        this->getMap().getSquare(old_pos).setEntity(NULL);
+        this->deleteProjectile(*projectile);
+        --j;
+      }
+      else
+      {
+        // RESET SQUARE
+        this->getMap().getSquare(old_pos).setEntity(NULL);
+        if (this->getMap().getSquare(projectile->getPos()).getEntity() != NULL)
+        { // COLLISION
+          this->deleteProjectile(*projectile);
+          --j;
+        }
+        else
+        { // MOVE
+          this->getMap().getSquare(projectile->getPos())
+        .setEntity(projectile);
+        }
+      }
+    }
+  this->getPlayer().refreshShoot();
+  projectile->refreshMove();
+  }
+
   this->updateCycle();
   return ~Game::END;
 }
@@ -170,6 +232,21 @@ void               Game::spawnEnemy(void)
   this->_refresh = true;
 }
 
+void               Game::spawnProjectile(void)
+{
+	Projectile *          projectile;
+
+	if (this->_nb_projectile >= Game::PROJECTILE_MAX) {
+		return;
+	}
+//	if (this->getPlayer().shoot() == )
+	//	return;
+	projectile = new Projectile(Pos(this->getPlayer().getX(), this->getPlayer().getY() - 1));
+	this->_projectile[this->_nb_projectile++] = projectile;
+	this->getMap().getSquare(this->getPlayer().getPos()).setEntity(projectile);
+	this->_refresh = true;
+}
+
 void               Game::deleteEnemy(Enemy& enemy)
 {
   unsigned int idx;
@@ -187,6 +264,26 @@ void               Game::deleteEnemy(Enemy& enemy)
     this->_enemy[idx] = NULL;
   }
   --this->_nb_enemy;
+}
+
+void               Game::deleteProjectile(Projectile & projectile)
+{
+  unsigned int idx;
+
+  idx = this->getProjectileIdx(projectile);
+  if (idx == Game::PROJECTILE_MAX) {
+    return;
+  }
+  idx = this->getProjectileIdx(projectile);
+  // this->getSquare(x, y).setEntity(NULL);
+  delete this->_projectile[idx];
+  this->_projectile[idx] = NULL;
+  while (++idx < this->_nb_projectile)
+  {
+    this->_projectile[idx - 1] = this->_projectile[idx];
+    this->_projectile[idx] = NULL;
+  }
+  --this->_nb_projectile;
 }
 
 void               Game::output(void)
@@ -235,6 +332,11 @@ Enemy*             Game::getEnemy(unsigned int idx) const
   return this->_enemy[idx];
 }
 
+Projectile*        Game::getProjectile(unsigned int idx) const
+{
+  return this->_projectile[idx];
+}
+
 unsigned int       Game::getEnemyIdx(Enemy& enemy) const
 {
   unsigned int idx;
@@ -245,6 +347,18 @@ unsigned int       Game::getEnemyIdx(Enemy& enemy) const
     }
   }
   return Game::ENEMY_MAX;
+}
+
+unsigned int       Game::getProjectileIdx(Projectile & projectile) const
+{
+  unsigned int idx;
+
+  for (idx = 0; idx < _nb_projectile; ++idx) {
+    if (&projectile == this->_projectile[idx]) {
+      return idx;
+    }
+  }
+  return Game::PROJECTILE_MAX;
 }
 
 bool               Game::needRefresh(void) const

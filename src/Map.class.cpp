@@ -3,8 +3,8 @@
 
 // constructors + destructors
 
-const unsigned int     Map::X = 20;
-const unsigned int     Map::Y = 20;
+const unsigned int     Map::X = 30;
+const unsigned int     Map::Y = 30;
 
 Map::Map(void)
 {
