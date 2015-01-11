@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/11 15:34:29 by vrey              #+#    #+#             //
-//   Updated: 2015/01/11 19:34:48 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/11 20:10:42 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -88,10 +88,6 @@ Game&              Game::operator=(const Game& src)
 
 bool               Game::frame(void)
 {
-	if (false) {
-		return Game::END;
-	}
-
   if (this->_player.getOrder() != NONE)
   {
     if (this->_player.getOrder() == MOVE_LEFT)
@@ -102,6 +98,15 @@ bool               Game::frame(void)
       {
         this->_player.move(-1);
         this->getMap().getSquare(old_pos).setEntity(NULL);
+		if (this->getMap().getSquare(this->_player.getPos()).getEntity() != NULL)
+		{
+			Enemy * entity = (Enemy *)this->getMap().getSquare(this->_player.getPos()).getEntity();
+			this->deleteEnemy(*entity);
+			this->_score++;
+			this->_player.setCHP(this->_player.getCHP() - 1);
+			if (this->_player.getCHP() <= 0)
+				return (Game::END);
+		}
         this->getMap().getSquare(this->_player.getPos()).setEntity(&this->_player);
       }
     }
@@ -148,11 +153,15 @@ bool               Game::frame(void)
 				this->deleteProjectile(*entity);
 			}
 			else if (this->getMap().getSquare(enemy->getPos()).getEntity()->getType() == "Player")
-				// Remove HP here or finish the game
-			{};
-			this->deleteEnemy(*enemy);
-			--i;
-			do_refresh = false;
+			{
+				this->_score++;
+				this->deleteEnemy(*enemy);
+				--i;
+				do_refresh = false;
+				this->_player.setCHP(this->_player.getCHP() - 1);
+				if (this->_player.getCHP() <= 0)
+					return (Game::END);
+			}
         }
         else
         { // MOVE
@@ -192,6 +201,7 @@ bool               Game::frame(void)
 			this->getMap().getSquare(projectile->getPos()).setEntity(NULL);
 			this->deleteEnemy(*entity);
 			this->deleteProjectile(*projectile);
+			this->_score++;
 			--j;
 			do_refresh = false;
         }

@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 12:41:39 by vrey              #+#    #+#             //
-//   Updated: 2015/01/11 16:22:50 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/11 20:10:56 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -71,6 +71,11 @@ void         Player::setOrder(const EPlayerOrder order)
 EPlayerOrder Player::getOrder(void) const
 {
     return this->_order;
+}
+
+void		 Player::setCHP(unsigned int i)
+{
+	this->chp = i;
 }
 
 void         Player::output(void) const
