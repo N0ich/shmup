@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/11 15:34:29 by vrey              #+#    #+#             //
-//   Updated: 2015/01/11 20:10:42 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/11 20:44:53 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -146,7 +146,8 @@ bool               Game::frame(void)
         this->getMap().getSquare(old_pos).setEntity(NULL);
         if (this->getMap().getSquare(enemy->getPos()).getEntity() != NULL)
         { // COLLISION
-			if (this->getMap().getSquare(enemy->getPos()).getEntity()->getType() == "Projectile")
+			if (this->getMap().getSquare(enemy->getPos())
+				.getEntity()->getType() == "Projectile")
 			{
 				Projectile * entity = (Projectile *)this->getMap().getSquare(enemy->getPos()).getEntity();
 				this->getMap().getSquare(enemy->getPos()).setEntity(NULL);
@@ -155,13 +156,13 @@ bool               Game::frame(void)
 			else if (this->getMap().getSquare(enemy->getPos()).getEntity()->getType() == "Player")
 			{
 				this->_score++;
-				this->deleteEnemy(*enemy);
-				--i;
-				do_refresh = false;
 				this->_player.setCHP(this->_player.getCHP() - 1);
 				if (this->_player.getCHP() <= 0)
 					return (Game::END);
 			}
+			this->deleteEnemy(*enemy);
+			--i;
+			do_refresh = false;
         }
         else
         { // MOVE
