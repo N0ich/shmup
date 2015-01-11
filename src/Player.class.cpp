@@ -79,7 +79,7 @@ void         Player::setCHP(unsigned int i)
 
 void         Player::output(WINDOW *win) const
 {
-    attron(COLOR_PAIR(Player::COLOR_PAIR));
+    wattron(win, COLOR_PAIR(Player::COLOR_PAIR));
     (void)waddch(win, '^');
-    attroff(COLOR_PAIR(Player::COLOR_PAIR));
+    wattroff(win, COLOR_PAIR(Player::COLOR_PAIR));
 }

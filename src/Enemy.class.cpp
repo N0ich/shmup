@@ -47,7 +47,7 @@ Enemy::~Enemy(void)
 
 void         Enemy::output(WINDOW *win) const
 {
-    attron(COLOR_PAIR(Enemy::COLOR_PAIR));
+    wattron(win, COLOR_PAIR(Enemy::COLOR_PAIR));
     (void)waddch(win, '@');
-    attroff(COLOR_PAIR(Enemy::COLOR_PAIR));
+    wattroff(win, COLOR_PAIR(Enemy::COLOR_PAIR));
 }

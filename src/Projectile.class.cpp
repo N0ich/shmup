@@ -52,7 +52,7 @@ bool		Projectile::move(void)
 
 void        Projectile::output(WINDOW *win) const
 {
-    attron(COLOR_PAIR(Projectile::COLOR_PAIR));
+    wattron(win, COLOR_PAIR(Projectile::COLOR_PAIR));
     (void)waddch(win, '|');
-    attroff(COLOR_PAIR(Projectile::COLOR_PAIR));
+    wattroff(win, COLOR_PAIR(Projectile::COLOR_PAIR));
 }
