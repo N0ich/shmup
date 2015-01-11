@@ -14,7 +14,6 @@
 # define __SQUARE_CLASS_HPP__
 
 #include "AEntity.class.hpp"
-#include <iostream>
 
 class Square
 {
@@ -28,6 +27,8 @@ public:
   Square&               operator=(const Square& src);
 
   // functions
+
+  void                  output(void) const;
 
   // getters + setters
   const unsigned int x;

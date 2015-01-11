@@ -19,16 +19,22 @@ typedef void (*f_atexit)(void);
 
 bool initNcurses(void)
 {
-  WINDOW* win;
-  bool    has_color;
 
-  (void)win;
-  (void)has_color;
-  if ((win = initscr()) == NULL) {
+
+  if (initscr() == NULL) {
     return false;
   }
-  if (has_colors() && start_color() != ERR) {
-    has_color = true;
+  (void)atexit((f_atexit)&endwin); // clear ncurses at exit
+
+  if (has_colors() && start_color() == ERR)
+  {
+    if (
+      init_pair(Player::COLOR_PAIR, COLOR_GREEN, COLOR_BLACK) == ERR || 
+      init_pair(Enemy::COLOR_PAIR, COLOR_RED, COLOR_BLACK) == ERR
+    ) {
+      return false;
+    }
+    return false;
   }
 
   if (cbreak() == ERR) { // disable buffering + disable DEL
@@ -55,7 +61,10 @@ bool initNcurses(void)
     return false;
   }
 
-  atexit((f_atexit)&endwin); // clear ncurses at exit
+  if (scrollok(stdscr, false) == ERR) { // do not scroll on new line
+    return false;
+  }
+
   return true;
 }
 
@@ -66,22 +75,23 @@ void startGame(void)
 
   do
   {
-    key = wgetch(stdscr);
-    if (key == KEY_END || key == KEY_EXIT) {
-      exit(0);
-    }
+    { // GAME HANDLER
+      key = wgetch(stdscr);
+      if (key == KEY_END || key == KEY_EXIT) {
+        exit(0);
+      }
 
-    // IN A NEAR FUTURE HANDLE THIS IN AN ARRAY OF ORDERS
-    if (key == KEY_LEFT || key == KEY_RIGHT)
-    {
+      // IN A NEAR FUTURE HANDLE THIS IN AN ARRAY OF ORDERS
+      if (key == KEY_LEFT || key == KEY_RIGHT)
+      {
       // ORDER MOVE SHIP
+      }
     }
 
-    if (true) // GAME STATE CHANGED
+    if (game.needRefresh())
     {
       (void)clear();
-      std::cout << game;
-      // SET GAME STATE UNCHANGED
+      game.output();
     }
   } while (game.frame() != Game::END);
 }
@@ -92,7 +102,7 @@ int main(void)
 
   if (!initNcurses())
   {
-    std::cout << "Could not initialize ncurses" << std::endl;
+    std::cout << "Could not fully initialize ncurses" << std::endl;
     return errno;
   }
   startGame();

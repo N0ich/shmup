@@ -1,4 +1,5 @@
 #include "Game.class.hpp"
+#include <ncurses.h>
 
 // constructors + destructors
 
@@ -7,7 +8,7 @@ const unsigned int Game::ENEMY_MAX = 20;
 const bool         Game::END       = false;
 
 Game::Game(void) :
-  _map(), _cycle(0), _player(), _nb_enemy(0)
+  _map(), _cycle(0), _refresh(true), _score(0), _player(), _nb_enemy(0)
 {
   this->_enemy = new Enemy*[Game::ENEMY_MAX];
   for (unsigned int n = 0; n < Game::ENEMY_MAX; ++n) {
@@ -28,7 +29,7 @@ Game::Game(void) :
 }
 
 Game::Game(const Game& src) :
-  _map(), _cycle(0), _player(), _nb_enemy(0)
+  _map(), _cycle(0), _refresh(true), _score(0), _player(), _nb_enemy(0)
 {
   (void)src;
   this->_enemy = new Enemy*[Game::ENEMY_MAX];
@@ -51,7 +52,7 @@ Game::~Game(void)
   #endif
 }
 
-// operators
+// OPERATORS
 
 Game&              Game::operator=(const Game& src)
 {
@@ -59,13 +60,15 @@ Game&              Game::operator=(const Game& src)
   return *this;
 }
 
-// functions
+// FUNCTIONS
 
 bool               Game::frame(void)
 {
   if (false) {
     return Game::END;
   }
+  // DO ACTIONS
+  this->updateCycle();
   return ~Game::END;
 }
 
@@ -100,6 +103,13 @@ void               Game::deleteEnemy(Enemy& enemy)
   --this->_nb_enemy;
 }
 
+void               Game::output(void)
+{
+  this->_refresh = false;
+  (void)wmove(stdscr, 0, 0);
+  this->getMap().output();
+}
+
 // getters + setters
 
 unsigned int       Game::getCycle(void) const
@@ -112,10 +122,14 @@ void               Game::updateCycle(void)
   if (++this->_cycle >= Game::CYCLE_MAX) {
     this->_cycle = 0;
   }
-  // DO NO ACTION HERE
 }
 
 Player&            Game::getPlayer(void)
+{
+  return this->_player;
+}
+
+const Player&      Game::getPlayer(void) const
 {
   return this->_player;
 }
@@ -147,11 +161,7 @@ unsigned int       Game::getEnemyIdx(Enemy& enemy) const
   return Game::ENEMY_MAX;
 }
 
-// @todo: move the actual stuff in an output function (which handles ncurses and raw as DEBUG)
-std::ostream&      operator<<(std::ostream& stream, const Game& obj)
+bool               Game::needRefresh(void) const
 {
-  // @todo: show score
-  stream << obj.getMap();
-  // @todo: show additionnal infos
-  return stream;
+  return this->_refresh;
 }

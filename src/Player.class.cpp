@@ -11,8 +11,10 @@
 // ************************************************************************** //
 
 #include "Player.class.hpp"
-
 #include "Square.class.hpp"
+#include <ncurses.h>
+
+const short  Player::COLOR_PAIR = 1;
 
 Player::Player(void): AEntity()
 {
@@ -54,7 +56,7 @@ Player::Player(Player const & src): AEntity()
     return;
 }
 
-void		Player::move(int i)
+void		 Player::move(int i)
 {
 	if (this->chp > 0)
     {
@@ -73,7 +75,9 @@ Player::~Player(void)
 	return;
 }
 
-char         Player::toChar(void) const
+void         Player::output(void) const
 {
-    return '^';
+    // attron(COLOR_PAIR(Player::COLOR_PAIR));
+    (void)waddch(stdscr, '^');
+    // attroff(COLOR_PAIR(Player::COLOR_PAIR));
 }

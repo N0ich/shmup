@@ -29,11 +29,12 @@ public:
 	Player(Player const & src);
 	~Player(void);
 
-	void		move(int i);
+	Player &             operator=(Player const &);
 
-    Player &     operator=(Player const &);
+	void		             move(int i);
+	void                 output(void) const;
 
-    char         toChar(void) const;
+  static const short   COLOR_PAIR;
 };
 
 

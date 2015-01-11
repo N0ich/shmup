@@ -4,7 +4,6 @@
 #include "Map.class.hpp"
 #include "Player.class.hpp"
 #include "Enemy.class.hpp"
-#include <iostream>
 
 class Game
 {
@@ -24,23 +23,31 @@ public:
   void                      spawnEnemy(void);
   void                      deleteEnemy(Enemy& enemy);
 
+  void                      output(void);
+
   // getters + setters
 
   unsigned int              getCycle(void) const;
   void                      updateCycle(void);
 
-  Player&                   getPlayer(void);
   Map&                      getMap(void);
   const Map&                getMap(void) const;
 
+  Player&                   getPlayer(void);
+  const Player&             getPlayer(void) const;
+
   Enemy*                    getEnemy(unsigned int idx) const;
   unsigned int              getEnemyIdx(Enemy& enemy) const;
+
+  bool                      needRefresh(void) const;
 
   static const bool         END;
 
 protected:
   Map                       _map;
   unsigned int              _cycle;
+  bool                      _refresh;
+  unsigned int              _score;
 
   Player                    _player;
   unsigned int              _nb_enemy;
@@ -50,7 +57,5 @@ private:
   static const unsigned int CYCLE_MAX;
   static const unsigned int ENEMY_MAX;
 };
-
-std::ostream&               operator<<(std::ostream& stream, const Game& obj);
 
 #endif

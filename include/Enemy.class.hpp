@@ -29,10 +29,11 @@ public:
 	Enemy(Enemy const & src);
 	~Enemy(void);
 
+  Enemy &              operator=(Enemy const &);
 
-    Enemy &     operator=(Enemy const &);
+  void                 output(void) const;
 
-    char        toChar(void) const;
+  static const short   COLOR_PAIR;
 };
 
 

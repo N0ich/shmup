@@ -65,21 +65,21 @@ public:
 	** Move and shoot cd refreshers
 	*/
 	
-	void			refreshMove(void);
-	void			refreshShoot(void);
+	void			    refreshMove(void);
+	void			    refreshShoot(void);
 
 	/*
 	** Actions
 	*/
 
-	void			die(void);
+	void			    die(void);
 	virtual void	move(void);
-	bool			shoot(void);
-	void			takeDamage(unsigned int);
+	bool			    shoot(void);
+	void			    takeDamage(unsigned int);
 
-	AEntity &		operator=(AEntity const &);
+	AEntity &		  operator=(AEntity const &);
 
-	virtual char toChar(void) const = 0;
+	virtual void  output(void) const = 0;
 
 };
 

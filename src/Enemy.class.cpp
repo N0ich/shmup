@@ -10,9 +10,10 @@
 //                                                                            //
 // ************************************************************************** //
 
-
 #include "Enemy.class.hpp"
+#include <ncurses.h>
 
+const short  Enemy::COLOR_PAIR = 2;
 
 Enemy::Enemy(void): AEntity()
 {
@@ -59,7 +60,9 @@ Enemy::~Enemy(void)
 	return;
 }
 
-char         Enemy::toChar(void) const
+void         Enemy::output(void) const
 {
-    return '@';
+    // attron(COLOR_PAIR(Enemy::COLOR_PAIR));
+    (void)waddch(stdscr, '@');
+    // attroff(COLOR_PAIR(Enemy::COLOR_PAIR));
 }

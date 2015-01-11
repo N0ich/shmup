@@ -3,7 +3,6 @@
 
 #include "Square.class.hpp"
 #include <cstddef>
-#include <iostream>
 
 class Map
 {
@@ -16,7 +15,9 @@ public:
   // operators
   Map&                      operator=(const Map& src);
 
-  // functions
+  // FUNCTIONS
+
+  void                      output(void) const;
 
   // getters + setters
 
@@ -31,7 +32,5 @@ protected:
 
 private:
 };
-
-std::ostream&               operator<<(std::ostream& stream, const Map& obj);
 
 #endif
