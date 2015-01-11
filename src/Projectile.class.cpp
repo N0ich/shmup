@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 12:41:39 by vrey              #+#    #+#             //
-//   Updated: 2015/01/11 18:31:30 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/11 19:30:47 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -23,7 +23,7 @@ const short  Projectile::COLOR_PAIR = 2;
 //  }
 
 Projectile::Projectile(Pos const & pos) :
-    AEntity(pos, "Enemy", 3, 3, 10, 10, 0, 0, 0)
+    AEntity(pos, "Projectile", 3, 3, 10, 10, 0, 0, 0)
 {
 }
 

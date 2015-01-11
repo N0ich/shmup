@@ -83,10 +83,10 @@ void startGame(void)
       }
 
       // IN A NEAR FUTURE HANDLE THIS IN AN ARRAY OF ORDERS
-      if (key == KEY_LEFT) {
+      if (key == KEY_LEFT || key == 'a') {
         game.getPlayer().setOrder(MOVE_LEFT);
       }
-      else if (key == KEY_RIGHT) {
+      else if (key == KEY_RIGHT || key == 'd') {
         game.getPlayer().setOrder(MOVE_RIGHT);
       }
     }
@@ -98,6 +98,7 @@ void startGame(void)
       game.output();
     }
     usleep(5000);
+    key = 0;
   } while (game.frame() != Game::END);
 }
 

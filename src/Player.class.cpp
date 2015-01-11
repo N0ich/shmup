@@ -60,14 +60,7 @@ Player::~Player(void)
 
 void		 Player::move(int i)
 {
-	if (this->chp > 0)
-    {
-		if (this->speed == this->mspeed)
-		{
-            this->speed = 0;
-			this->pos.x += i;
-        }
-    }
+    this->pos.x += i;
 }
 
 void         Player::setOrder(const EPlayerOrder order)
