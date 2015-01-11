@@ -6,7 +6,7 @@
 // constructors + destructors
 
 const unsigned int Game::CYCLE_MAX = 10;
-const unsigned int Game::ENEMY_MAX = 10;
+const unsigned int Game::ENEMY_MAX = 8;
 const bool         Game::END       = false;
 
 Game::Game(void) :
@@ -71,6 +71,16 @@ bool               Game::frame(void)
   }
   
   this->spawnEnemy();
+  for (int i = 0; i < this->_nb_enemy; i ++)
+  {
+	  if (this->getEnemy(i)->move() == true)
+	  {
+		  this->getMap().getSquare(this->getEnemy(i)->getX(), this->getEnemy(i)->getY())
+			  .setEntity(*this->getEnemy(i));
+		  this->_refresh = true;
+	  }
+	  this->getEnemy(i)->refreshMove();
+  }
   // DO ACTIONS
   this->updateCycle();
   return ~Game::END;
@@ -102,7 +112,7 @@ void               Game::spawnEnemy(void)
 	  if (&this->getMap().getSquare(x, 0).getEntity() == NULL) {
 		  i--;
 	  }
-	  if (++x == Map::X) {
+	  if (i > 0 && ++x == Map::X) {
 		  x = 0;
 	  }
   }

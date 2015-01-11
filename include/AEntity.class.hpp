@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 11:58:52 by vrey              #+#    #+#             //
-//   Updated: 2015/01/10 17:50:06 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/11 13:08:41 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -73,7 +73,7 @@ public:
 	*/
 
 	void			    die(void);
-	virtual void	move(void);
+	virtual bool		move(void);
 	bool			    shoot(void);
 	void			    takeDamage(unsigned int);
 

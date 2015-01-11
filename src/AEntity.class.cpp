@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 12:14:47 by vrey              #+#    #+#             //
-//   Updated: 2015/01/10 17:51:29 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/11 13:10:04 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -57,18 +57,20 @@ void			AEntity::die(void)
 	return;
 }
 
-void			AEntity::move(void)
+bool			AEntity::move(void)
 {
 	if (this->chp > 0)
 	{
 		if (this->speed == this->mspeed)
 		{
-			this->y--;
+			this->y++;
 			this->speed = 0;
 			this->pos.setX(this->x);
 			this->pos.setY(this->y);
+			return true;
 		}
 	}
+	return false;
 }
 
 bool			AEntity::shoot(void)
