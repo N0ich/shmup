@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 12:41:39 by vrey              #+#    #+#             //
-//   Updated: 2015/01/11 18:27:38 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/11 20:22:55 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -21,7 +21,7 @@ const short  Enemy::COLOR_PAIR = 2;
 // }
 
 Enemy::Enemy(const Pos& pos) :
-    AEntity(pos, "Enemy", 3, 3, 10, 10, 0, 0, 0)
+    AEntity(pos, "Enemy", 3, 3, 30, 30, 0, 0, 0)
 {
 // 	this->pos = pos;
 //     this->type = "Enemy";

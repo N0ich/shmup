@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 12:41:47 by vrey              #+#    #+#             //
-//   Updated: 2015/01/11 16:22:12 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/11 20:09:31 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -41,6 +41,7 @@ public:
 
 	void                 setOrder(const EPlayerOrder order);
 	EPlayerOrder         getOrder(void) const;
+	void				 setCHP(unsigned int i);
 
   static const short   COLOR_PAIR;
 

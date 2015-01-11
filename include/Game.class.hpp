@@ -47,6 +47,8 @@ public:
   Projectile*               getProjectile(unsigned int idx) const;
   unsigned int              getProjectileIdx(Projectile & projectile) const;
 
+  unsigned int              getScore(void) const;
+
   bool                      needRefresh(void) const;
 
   // magic getters + setters

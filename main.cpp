@@ -106,7 +106,7 @@ void startGame(WINDOW* score_win, WINDOW* game_win)
     if (game.needRefresh())
     {
       (void)wmove(score_win, 0, 0);
-      // (void)wprintw(score_win, "SCORE %d           HP %d\n", game.getScore(), game.getPlayer().getCHP());
+      (void)wprintw(score_win, "SCORE %d           HP %d\n", game.getScore(), game.getPlayer().getCHP());
 
       (void)wborder(game_win, '|', '|', '-', '-', '+', '+', '+', '+');
       game.output(game_win);
