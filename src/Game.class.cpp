@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/11 15:34:29 by vrey              #+#    #+#             //
-//   Updated: 2015/01/11 16:45:05 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/11 19:08:31 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -88,9 +88,9 @@ Game&              Game::operator=(const Game& src)
 
 bool               Game::frame(void)
 {
-  if (false) {
-    return Game::END;
-  }
+	if (false) {
+		return Game::END;
+	}
 
   if (this->_player.getOrder() != NONE)
   {
@@ -118,7 +118,6 @@ bool               Game::frame(void)
     }
     this->_player.setOrder(NONE);
   }
-
   this->spawnEnemy();
   for (unsigned int i = 0; i < this->_nb_enemy; i ++)
   {
@@ -157,11 +156,12 @@ bool               Game::frame(void)
     }
   }
 
-  this->spawnProjectile();
+   this->spawnProjectile();
   for (unsigned int j = 0; j < this->_nb_projectile; j ++)
   {
     Projectile*  projectile = this->getProjectile(j);
     Pos          old_pos    = projectile->getPos();
+    bool         do_refresh = true;
 
     if (projectile->move() == true)
     {
@@ -170,6 +170,7 @@ bool               Game::frame(void)
         this->getMap().getSquare(old_pos).setEntity(NULL);
         this->deleteProjectile(*projectile);
         --j;
+        do_refresh = false;
       }
       else
       {
@@ -179,18 +180,19 @@ bool               Game::frame(void)
         { // COLLISION
           this->deleteProjectile(*projectile);
           --j;
+		  do_refresh = false;
         }
         else
         { // MOVE
           this->getMap().getSquare(projectile->getPos())
-        .setEntity(projectile);
+			  .setEntity(projectile);
         }
       }
     }
-  this->getPlayer().refreshShoot();
-  projectile->refreshMove();
+	if (do_refresh) {
+		projectile->refreshMove();
+	}
   }
-
   this->updateCycle();
   return ~Game::END;
 }
@@ -239,11 +241,9 @@ void               Game::spawnProjectile(void)
 	if (this->_nb_projectile >= Game::PROJECTILE_MAX) {
 		return;
 	}
-//	if (this->getPlayer().shoot() == )
-	//	return;
 	projectile = new Projectile(Pos(this->getPlayer().getX(), this->getPlayer().getY() - 1));
 	this->_projectile[this->_nb_projectile++] = projectile;
-	this->getMap().getSquare(this->getPlayer().getPos()).setEntity(projectile);
+	this->getMap().getSquare(projectile->getPos()).setEntity(projectile);
 	this->_refresh = true;
 }
 
@@ -272,7 +272,7 @@ void               Game::deleteProjectile(Projectile & projectile)
 
   idx = this->getProjectileIdx(projectile);
   if (idx == Game::PROJECTILE_MAX) {
-    return;
+	  return;
   }
   idx = this->getProjectileIdx(projectile);
   // this->getSquare(x, y).setEntity(NULL);

@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 12:41:39 by vrey              #+#    #+#             //
-//   Updated: 2015/01/11 16:28:43 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/11 18:31:30 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -15,12 +15,12 @@
 
 const short  Projectile::COLOR_PAIR = 2;
 
-Projectile::Projectile(void) :
-    AEntity(pos((unsigned int)0, (unsigned int)0), "Enemy", 3, 3, 10, 10, 0, 0, 0)
-{
-	this->type = "Projectile";
-    return;
-}
+// Projectile::Projectile(void) :
+//      AEntity()
+//  {
+//  	this->type = "Projectile";
+//      return;
+//  }
 
 Projectile::Projectile(Pos const & pos) :
     AEntity(pos, "Enemy", 3, 3, 10, 10, 0, 0, 0)
@@ -43,10 +43,8 @@ bool		Projectile::move(void)
     {
 		if (this->speed == this->mspeed)
         {
-            this->y--;
+            this->pos.y--;
             this->speed = 0;
-            this->pos.setX(this->x);
-            this->pos.setY(this->y);
             return true;
         }
     }

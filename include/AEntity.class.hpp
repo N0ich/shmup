@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 11:58:52 by vrey              #+#    #+#             //
-//   Updated: 2015/01/11 13:08:41 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/11 18:24:42 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -25,7 +25,7 @@ class AEntity
 {
 protected:
 
-  Pos           pos;
+	Pos           pos;
 	std::string		type;
 	unsigned int	mhp;
 	unsigned int	chp;
