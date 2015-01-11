@@ -16,10 +16,10 @@
 
 // constructors + destructors
 
-const unsigned int Game::CYCLE_MAX = 10;
-const unsigned int Game::ENEMY_MAX = 8;
-const unsigned int Game::PROJECTILE_MAX = 10;
-const bool         Game::END       = false;
+const unsigned int Game::CYCLE_MAX      = 10;
+const unsigned int Game::ENEMY_MAX      = 15;
+const unsigned int Game::PROJECTILE_MAX = 6;
+const bool         Game::END            = false;
 
 Game::Game(void) :
 	_map(), _cycle(0), _refresh(true), _score(0), _player(),

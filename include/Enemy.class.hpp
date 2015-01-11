@@ -15,11 +15,8 @@
 
 #include "AEntity.class.hpp"
 
-class Enemy: public AEntity {
-
-private:
-
-
+class Enemy: public AEntity
+{
 public:
 	Enemy(void);
 	Enemy(Pos const & pos);
@@ -31,6 +28,8 @@ public:
   void                 output(WINDOW *win) const;
 
   static const short   COLOR_PAIR;
+private:
+  char                 _char;
 };
 
 
