@@ -95,6 +95,7 @@ void startGame(void)
       (void)clear();
       game.output();
     }
+    usleep(5000);
   } while (game.frame() != Game::END);
 }
 

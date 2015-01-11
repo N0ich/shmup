@@ -52,7 +52,7 @@ AEntity&              Square::getEntity(void) const
   return *this->_entity;
 }
 
-void                  Square::setEntity(AEntity& entity)
+void                  Square::setEntity(AEntity* entity)
 {
-  this->_entity = &entity;
+  this->_entity = entity;
 }

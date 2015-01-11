@@ -35,7 +35,7 @@ public:
   const unsigned int y;
 
   AEntity&           getEntity(void) const;
-  void               setEntity(AEntity& entity);
+  void               setEntity(AEntity* entity);
 
 protected:
   AEntity*           _entity;

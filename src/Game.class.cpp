@@ -23,7 +23,7 @@ Game::Game(void) :
 
   // this->_player.setX(Map::X / 2);
   // this->_player.setX(Map::Y / 2);
-  this->getMap().getSquare(Map::X / 2, Map::Y / 2).setEntity(this->_player);
+  this->getMap().getSquare(Map::X / 2, Map::Y / 2).setEntity(&this->_player);
 
   #ifdef DEBUG
   std::cout << "[CONSTRUCTED] Game()" << std::endl;
@@ -71,15 +71,42 @@ bool               Game::frame(void)
   }
   
   this->spawnEnemy();
-  for (int i = 0; i < this->_nb_enemy; i ++)
+  for (unsigned int i = 0; i < this->_nb_enemy; i ++)
   {
-	  if (this->getEnemy(i)->move() == true)
-	  {
-		  this->getMap().getSquare(this->getEnemy(i)->getX(), this->getEnemy(i)->getY())
-			  .setEntity(*this->getEnemy(i));
-		  this->_refresh = true;
-	  }
-	  this->getEnemy(i)->refreshMove();
+    Enemy*       enemy      = this->getEnemy(i);
+    unsigned int old_x      = enemy->getX();
+    unsigned int old_y      = enemy->getY();
+    bool         do_refresh = true;
+
+    if (enemy->move() == true)
+    {
+      if (enemy->getX() >= Map::X || enemy->getY() >= Map::Y)
+      { // CHECK IF OUT OF THE MAP
+        this->getMap().getSquare(old_x, old_y).setEntity(NULL);
+        this->deleteEnemy(*enemy);
+        --i;
+        do_refresh = false;
+      }
+      else
+      {
+        // RESET SQUARE
+        this->getMap().getSquare(old_x, old_y).setEntity(NULL);
+        if (&this->getMap().getSquare(enemy->getX(), enemy->getY()).getEntity() != NULL)
+        { // COLLISION
+          this->deleteEnemy(*enemy);
+          --i;
+          do_refresh = false;
+        }
+        else
+        { // MOVE
+          this->getMap().getSquare(enemy->getX(), enemy->getY()).setEntity(enemy);
+          this->_refresh = true;
+        }
+      }
+    }
+    if (do_refresh) {
+      enemy->refreshMove();
+    }
   }
   // DO ACTIONS
   this->updateCycle();
@@ -119,7 +146,7 @@ void               Game::spawnEnemy(void)
 
   enemy = new Enemy(Pos(x, 0));
   this->_enemy[this->_nb_enemy++] = enemy;
-  this->getMap().getSquare(x, 0).setEntity(*enemy);
+  this->getMap().getSquare(x, 0).setEntity(enemy);
   this->_refresh = true;
 }
 
