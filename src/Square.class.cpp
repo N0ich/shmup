@@ -1,32 +1,34 @@
 #include "Square.class.hpp"
 #include <ncurses.h>
 
-// constructors + destructors
+// CONSTRUCTORS + DESTRUCTORS
 
-Square::Square(const unsigned int x, const unsigned int y) :
-  x(x), y(y), _entity(NULL)
+Square::Square(const Pos& pos) :
+  pos(pos)
 {
+  this->_entity = NULL;
   #ifdef DEBUG
-  std::cout << "[CONSTRUCTED] Square(" << this->x << "," << this->y << ")" << std::endl;
+  std::cout << "[CONSTRUCTED] Square(" << this->pos.x << "," << this->pos.y << ")" << std::endl;
   #endif
 }
 
 Square::Square(const Square& src) :
-  x(src.x), y(src.y), _entity(src._entity)
+  pos(src.pos)
 {
+  this->_entity = NULL;
   #ifdef DEBUG
-  std::cout << "[CONSTRUCTED] Square(" << this->x << "," << this->y << ")" << std::endl;
+  std::cout << "[CONSTRUCTED] Square(" << this->pos.x << "," << this->pos.y << ")" << std::endl;
   #endif
 }
 
 Square::~Square(void)
 {
   #ifdef DEBUG
-  std::cout << "[DESTRUCTED] Square(" << this->x << "," << this->y << ")" << std::endl;
+  std::cout << "[DESTRUCTED] Square(" << this->pos.x << "," << this->pos.y << ")" << std::endl;
   #endif
 }
 
-// operators
+// OPERATORS
 Square&               Square::operator=(const Square& src)
 {
   (void)src;
@@ -37,19 +39,24 @@ Square&               Square::operator=(const Square& src)
 
 void                  Square::output(void) const
 {
-  if (&this->getEntity() != NULL) {
-    this->getEntity().output();
+  if (this->getEntity() != NULL) {
+    this->getEntity()->output();
   }
   else {
     (void)waddch(stdscr, ' ');
   }
 }
 
-// getters + setters
+// GETTERS + SETTERS
 
-AEntity&              Square::getEntity(void) const
+const AEntity*        Square::getEntity(void) const
 {
-  return *this->_entity;
+  return this->_entity;
+}
+
+AEntity*              Square::getEntity(void)
+{
+  return this->_entity;
 }
 
 void                  Square::setEntity(AEntity* entity)

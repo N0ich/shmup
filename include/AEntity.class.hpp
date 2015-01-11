@@ -21,12 +21,11 @@
 ** Entities abstract class
 */
 
-class AEntity {
-
+class AEntity
+{
 protected:
 
-	unsigned int	x;
-	unsigned int	y;
+  Pos           pos;
 	std::string		type;
 	unsigned int	mhp;
 	unsigned int	chp;
@@ -35,23 +34,28 @@ protected:
 	unsigned int	dmg;
 	unsigned int	cooldown;
 	unsigned int	mcd;
-	Pos				pos;
 
 public:
-	AEntity(void);
-	AEntity(unsigned int x, unsigned int y,
-			std::string type, unsigned int mhp,
-			unsigned int chp, unsigned int speed, unsigned int mspeed,
-			unsigned int dmg, unsigned int cooldown, unsigned int mcd);
-	AEntity(AEntity const & src);
+	AEntity(const Pos pos,
+			const std::string& type, const unsigned int mhp,
+			const unsigned int chp, const unsigned int speed, const unsigned int mspeed,
+			const unsigned int dmg, const unsigned int cooldown, const unsigned int mcd);
+	AEntity(const AEntity& src);
 	virtual ~AEntity(void);
 
 	/*
 	** Getters
 	*/
+  const Pos&    getPos(void) const;
+  Pos&          getpos(void);
+  void          setPos(const Pos& pos);
 
 	unsigned int	getX(void) const;
+  void          setX(unsigned int x);
+
 	unsigned int	getY(void) const;
+  void          setY(unsigned int y);
+
 	unsigned int	getSpeed(void) const;
 	unsigned int	getMSpeed(void) const;
 	unsigned int	getMHP(void) const;
@@ -81,6 +85,8 @@ public:
 
 	virtual void  output(void) const = 0;
 
+private:
+  AEntity(void);
 };
 
 #endif

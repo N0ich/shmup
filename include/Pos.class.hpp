@@ -13,29 +13,26 @@
 #ifndef POS_CLASS_HPP
 # define POS_CLASS_HPP
 
-#include <iostream>
-#include <string>
+class Pos
+{
+public:
+  Pos(const unsigned int x, const unsigned int y);
+  Pos(Pos const &pos);
+  ~Pos(void);
 
-class Pos {
+  unsigned int    getX(void) const;
+  unsigned int    getY(void) const;
+
+  void            setX(const unsigned int i);
+  void            setY(const unsigned int i);
+
+  Pos&            operator=(Pos const & src);
+
+  unsigned int    x;
+  unsigned int    y;
 
 private:
-	unsigned int		_x;
-	unsigned int		_y;	
-
-public:
-	Pos();
-	Pos(int x, int y);
-	Pos(Pos const &pos);
-	~Pos(void);
-
-	unsigned int		getX(void) const;
-	unsigned int		getY(void) const;
-
-	void				setX(unsigned int i);
-	void				setY(unsigned int i);
-
-	Pos &	operator=(Pos const & src);
-
+  Pos(void);
 };
 
 

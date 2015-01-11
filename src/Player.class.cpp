@@ -11,49 +11,51 @@
 // ************************************************************************** //
 
 #include "Player.class.hpp"
-#include "Square.class.hpp"
+#include "Map.class.hpp"
 #include <ncurses.h>
 
 const short  Player::COLOR_PAIR = 1;
 
-Player::Player(void): AEntity()
+// Player::Player(void): AEntity()
+// {
+// 	this->type = "Player";
+//     return;
+// }
+
+Player::Player(void) :
+    AEntity(Pos(Map::X / 2, Map::Y - 1), "Player", 3, 3, 10, 10, 0, 0, 0)
 {
-	this->type = "Player";
-    return;
+    this->_order = NONE;
 }
 
-Player::Player(unsigned int x, unsigned int y, std::string type,
-			   unsigned int mhp, unsigned int chp, unsigned int speed,
-			   unsigned int mspeed, unsigned int dmg, unsigned int cooldown,
-			   unsigned int mcd):
-	AEntity()
+// Player::Player(unsigned int x, unsigned int y, std::string type,
+// 			   unsigned int mhp, unsigned int chp, unsigned int speed,
+// 			   unsigned int mspeed, unsigned int dmg, unsigned int cooldown,
+// 			   unsigned int mcd):
+// 	AEntity()
+// {
+//     this->x = x;
+//     this->y = y;
+//     this->type = type;
+//     this->mhp = mhp;
+//     this->chp = chp;
+//     this->speed = speed;
+// 	this->mspeed = mspeed;
+//     this->dmg = dmg;
+// 	this->cooldown = cooldown;
+// 	this->mcd = mcd;
+//     this->_order = NONE;
+//     return;
+// }
+
+Player::Player(const Player& src) :
+    AEntity(src.pos, src.type, src.mhp, src.chp, src.speed, src.mspeed, src.dmg, src.cooldown, src.mcd)
 {
-    this->x = x;
-    this->y = y;
-    this->type = type;
-    this->mhp = mhp;
-    this->chp = chp;
-    this->speed = speed;
-	this->mspeed = mspeed;
-    this->dmg = dmg;
-	this->cooldown = cooldown;
-	this->mcd = mcd;
-    return;
+    this->_order = NONE;
 }
 
-Player::Player(Player const & src): AEntity()
+Player::~Player(void)
 {
-    this->x = src.getX();
-    this->y = src.getY();
-    this->type = src.getType();
-    this->mhp = src.getMHP();
-    this->chp = src.getCHP();
-    this->speed = src.getSpeed();
-	this->mspeed = src.getMSpeed();
-    this->dmg = src.getDmg();
-	this->cooldown = src.getCooldown();
-	this->mcd = src.getMCD();
-    return;
 }
 
 void		 Player::move(int i)
@@ -63,16 +65,19 @@ void		 Player::move(int i)
 		if (this->speed == this->mspeed)
 		{
             this->speed = 0;
-			this->x += i;
-			this->pos.setX(this->x);
-			this->pos.setY(this->y);
+			this->pos.x += i;
         }
     }
 }
 
-Player::~Player(void)
+void         Player::setOrder(const EPlayerOrder order)
 {
-	return;
+    this->_order = order;
+}
+
+EPlayerOrder Player::getOrder(void) const
+{
+    return this->_order;
 }
 
 void         Player::output(void) const

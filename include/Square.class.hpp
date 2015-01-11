@@ -14,12 +14,13 @@
 # define __SQUARE_CLASS_HPP__
 
 #include "AEntity.class.hpp"
+#include "Pos.class.hpp"
 
 class Square
 {
 public:
   // constructors + destructors
-  Square(const unsigned int x, const unsigned int y);
+  Square(const Pos& pos);
   Square(const Square& src);
   ~Square(void);
 
@@ -31,10 +32,10 @@ public:
   void                  output(void) const;
 
   // getters + setters
-  const unsigned int x;
-  const unsigned int y;
+  const Pos          pos;
 
-  AEntity&           getEntity(void) const;
+  const AEntity*     getEntity(void) const;
+  AEntity*           getEntity(void);
   void               setEntity(AEntity* entity);
 
 protected:
@@ -42,9 +43,6 @@ protected:
 
 private:
   Square(void);
-
 };
-
-std::ostream&               operator<<(std::ostream& stream, const Square& obj);
 
 #endif

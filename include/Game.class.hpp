@@ -41,6 +41,11 @@ public:
 
   bool                      needRefresh(void) const;
 
+  // magic getters + setters
+
+  Square&                   getSquare(const Pos pos);
+  const Square&             getSquare(const Pos pos) const;
+
   static const bool         END;
 
 protected:

@@ -15,17 +15,16 @@
 
 const short  Enemy::COLOR_PAIR = 2;
 
-Enemy::Enemy(void): AEntity()
-{
-	this->type = "Enemy";
-    return;
-}
+// Enemy::Enemy(void): AEntity()
+// {
+// 	this->type = "Enemy";
+//     return;
+// }
 
-Enemy::Enemy(Pos const & pos): AEntity()
+Enemy::Enemy(const Pos& pos) :
+    AEntity(pos, "Enemy", 3, 3, 10, 10, 0, 0, 0)
 {
 	this->pos = pos;
-    this->x = pos.getX();
-    this->y = pos.getY();
     this->type = "Enemy";
     this->mhp = 3;
     this->chp = 3;
@@ -37,19 +36,9 @@ Enemy::Enemy(Pos const & pos): AEntity()
     return;
 }
 
-Enemy::Enemy(Enemy const & src): AEntity()
+Enemy::Enemy(const Enemy& src) :
+    AEntity(src.pos, src.type, src.mhp, src.chp, src.speed, src.mspeed, src.dmg, src.cooldown, src.mcd)
 {
-    this->x = src.getX();
-    this->y = src.getY();
-    this->type = src.getType();
-    this->mhp = src.getMHP();
-    this->chp = src.getCHP();
-    this->speed = src.getSpeed();
-    this->speed = src.getMSpeed();
-    this->dmg = src.getDmg();
-	this->cooldown = src.getCooldown();
-	this->mcd = src.getMCD();
-    return;
 }
 
 Enemy::~Enemy(void)

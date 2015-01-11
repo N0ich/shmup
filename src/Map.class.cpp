@@ -13,7 +13,7 @@ Map::Map(void)
   {
     this->_square[x] = new Square*[Map::Y];
     for (unsigned int y = 0; y < Map::Y; ++y) {
-      this->_square[x][y] = new Square(x, y);
+      this->_square[x][y] = new Square(Pos(x, y));
     }
   }
   #ifdef DEBUG
@@ -68,20 +68,20 @@ void                   Map::output(void) const
     // getyx(stdscr, curs_y, curs_x);
     (void)wmove(stdscr, y, 0);
     for (unsigned int x = 0; x < Map::X; ++x) {
-      this->getSquare(x, y).output();
+      this->getSquare(Pos(x, y)).output();
     }
   }
 }
 
 // getters + setters
 
-Square&                Map::getSquare(const unsigned int x, const unsigned int y)
+Square&                Map::getSquare(const Pos pos)
 {
-  return this->_square[x][y][0];
+  return this->_square[pos.x][pos.y][0];
 }
 
-const Square&          Map::getSquare(const unsigned int x, const unsigned int y) const
+const Square&          Map::getSquare(const Pos pos) const
 {
-  return this->_square[x][y][0];
+  return this->_square[pos.x][pos.y][0];
 }
 

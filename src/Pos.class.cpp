@@ -12,50 +12,46 @@
 
 #include "Pos.class.hpp"
 
-Pos::Pos(void): _x(0), _y(0)
+Pos::Pos(const unsigned int x, const unsigned int y)
 {
-	return;
+  this->x = x;
+  this->y = y;
 }
 
-Pos::Pos(int x, int y): _x(x), _y(y)
+Pos::Pos(const Pos& pos)
 {
-	return;
-}
-
-Pos::Pos(Pos const & pos)
-{
-	this->_x = pos.getX();
-	this->_y = pos.getY();
+  this->x = pos.x;
+  this->y = pos.y;
 }
 
 Pos::~Pos(void)
 {
-	return;
+  return;
 }
 
-unsigned int		Pos::getX(void) const
+unsigned int    Pos::getX(void) const
 {
-	return this->_x;
+  return this->x;
 }
 
-unsigned int		Pos::getY(void) const
+unsigned int    Pos::getY(void) const
 {
-	return this->_y;
+  return this->y;
 }
 
-void				Pos::setX(unsigned int i)
+void            Pos::setX(const unsigned int x)
 {
-	this->_x = i;
+  this->x = x;
 }
 
-void				Pos::setY(unsigned int i)
+void            Pos::setY(const unsigned int y)
 {
-	this->_y = i;
+  this->y = y;
 }
 
-Pos &				Pos::operator=(Pos const & src)
+Pos &           Pos::operator=(const Pos& src)
 {
-	this->_x = src.getX();
-	this->_y = src.getY();
-	return *this;
+  this->x = src.x;
+  this->y = src.y;
+  return *this;
 }

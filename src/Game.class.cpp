@@ -17,13 +17,7 @@ Game::Game(void) :
     this->_enemy[n] = NULL;
   }
 
-  // @todo: really do it, for real
-  // unsigned int x = Map::X / 2;
-  // unsigned int y = Map::Y / 2;
-
-  // this->_player.setX(Map::X / 2);
-  // this->_player.setX(Map::Y / 2);
-  this->getMap().getSquare(Map::X / 2, Map::Y / 2).setEntity(&this->_player);
+  this->getMap().getSquare(this->_player.getPos()).setEntity(&this->_player);
 
   #ifdef DEBUG
   std::cout << "[CONSTRUCTED] Game()" << std::endl;
@@ -69,20 +63,46 @@ bool               Game::frame(void)
   if (false) {
     return Game::END;
   }
-  
+
+  if (this->_player.getOrder() != NONE)
+  {
+    if (this->_player.getOrder() == MOVE_LEFT)
+    {
+      Pos old_pos = this->_player.getPos();
+
+      if (old_pos.x > 0)
+      {
+        this->_player.move(-1);
+        this->getMap().getSquare(old_pos).setEntity(NULL);
+        this->getMap().getSquare(this->_player.getPos()).setEntity(&this->_player);
+      }
+    }
+    else if (this->_player.getOrder() == MOVE_RIGHT)
+    {
+      Pos old_pos = this->_player.getPos();
+
+      if (old_pos.x < Map::X - 1)
+      {
+        this->_player.move(1);
+        this->getMap().getSquare(old_pos).setEntity(NULL);
+        this->getMap().getSquare(this->_player.getPos()).setEntity(&this->_player);
+      }
+    }
+    this->_player.setOrder(NONE);
+  }
+
   this->spawnEnemy();
   for (unsigned int i = 0; i < this->_nb_enemy; i ++)
   {
     Enemy*       enemy      = this->getEnemy(i);
-    unsigned int old_x      = enemy->getX();
-    unsigned int old_y      = enemy->getY();
+    Pos          old_pos    = enemy->getPos();
     bool         do_refresh = true;
 
     if (enemy->move() == true)
     {
       if (enemy->getX() >= Map::X || enemy->getY() >= Map::Y)
       { // CHECK IF OUT OF THE MAP
-        this->getMap().getSquare(old_x, old_y).setEntity(NULL);
+        this->getMap().getSquare(old_pos).setEntity(NULL);
         this->deleteEnemy(*enemy);
         --i;
         do_refresh = false;
@@ -90,8 +110,8 @@ bool               Game::frame(void)
       else
       {
         // RESET SQUARE
-        this->getMap().getSquare(old_x, old_y).setEntity(NULL);
-        if (&this->getMap().getSquare(enemy->getX(), enemy->getY()).getEntity() != NULL)
+        this->getMap().getSquare(old_pos).setEntity(NULL);
+        if (this->getMap().getSquare(enemy->getpos()).getEntity() != NULL)
         { // COLLISION
           this->deleteEnemy(*enemy);
           --i;
@@ -99,7 +119,7 @@ bool               Game::frame(void)
         }
         else
         { // MOVE
-          this->getMap().getSquare(enemy->getX(), enemy->getY()).setEntity(enemy);
+          this->getMap().getSquare(enemy->getPos()).setEntity(enemy);
           this->_refresh = true;
         }
       }
@@ -125,7 +145,7 @@ void               Game::spawnEnemy(void)
 
   for (x = 0; x < Map::X; ++x)
   {
-	  if (&this->getMap().getSquare(x, 0).getEntity() == NULL) {
+	  if (this->getMap().getSquare(Pos(x, 0)).getEntity() == NULL) {
 		  ++n;
 	  }
   }
@@ -136,7 +156,7 @@ void               Game::spawnEnemy(void)
   x = 0;
   for (i = rand() % n; i > 0;)
   {
-	  if (&this->getMap().getSquare(x, 0).getEntity() == NULL) {
+	  if (this->getMap().getSquare(Pos(x, 0)).getEntity() == NULL) {
 		  i--;
 	  }
 	  if (i > 0 && ++x == Map::X) {
@@ -146,7 +166,7 @@ void               Game::spawnEnemy(void)
 
   enemy = new Enemy(Pos(x, 0));
   this->_enemy[this->_nb_enemy++] = enemy;
-  this->getMap().getSquare(x, 0).setEntity(enemy);
+  this->getMap().getSquare(Pos(x, 0)).setEntity(enemy);
   this->_refresh = true;
 }
 
@@ -158,7 +178,7 @@ void               Game::deleteEnemy(Enemy& enemy)
   if (idx == Game::ENEMY_MAX) {
     return;
   }
-  // this->getSquare(x, y).setEntity(NULL);
+  // this->getSquare(Pos(x, y)).setEntity(NULL);
   delete this->_enemy[idx];
   this->_enemy[idx] = NULL;
   while (++idx < this->_nb_enemy)
@@ -176,7 +196,7 @@ void               Game::output(void)
   this->getMap().output();
 }
 
-// getters + setters
+// GETTERS + SETTERS
 
 unsigned int       Game::getCycle(void) const
 {
@@ -230,4 +250,16 @@ unsigned int       Game::getEnemyIdx(Enemy& enemy) const
 bool               Game::needRefresh(void) const
 {
   return this->_refresh;
+}
+
+// MAGIC GETTERS + SETTERS
+
+Square&            Game::getSquare(const Pos pos)
+{
+  return this->getMap().getSquare(pos);
+}
+
+const Square&      Game::getSquare(const Pos pos) const
+{
+  return this->getMap().getSquare(pos);
 }

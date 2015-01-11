@@ -15,18 +15,22 @@
 
 #include "AEntity.class.hpp"
 
-class Player: public AEntity {
+enum EPlayerOrder
+{
+	NONE = 0,
+	MOVE_RIGHT,
+	MOVE_LEFT
+};
 
-private:
-
-
+class Player: public AEntity
+{
 public:
 	Player(void);
-	Player(unsigned int x, unsigned int y, std::string type,
-		   unsigned int mhp, unsigned int chp, unsigned int speed,
-		   unsigned int mspeed, unsigned int dmg, unsigned int cooldown,
-		   unsigned int mcd);
-	Player(Player const & src);
+	// Player(unsigned int x, unsigned int y, std::string type,
+	// 	   unsigned int mhp, unsigned int chp, unsigned int speed,
+	// 	   unsigned int mspeed, unsigned int dmg, unsigned int cooldown,
+	// 	   unsigned int mcd);
+	Player(const Player& src);
 	~Player(void);
 
 	Player &             operator=(Player const &);
@@ -34,7 +38,15 @@ public:
 	void		             move(int i);
 	void                 output(void) const;
 
+	void                 setOrder(const EPlayerOrder order);
+	EPlayerOrder         getOrder(void) const;
+
   static const short   COLOR_PAIR;
+
+protected:
+	EPlayerOrder         _order;
+
+private:
 };
 
 

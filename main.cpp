@@ -38,23 +38,23 @@ bool initNcurses(void)
     return false;
   }
 
-  if (cbreak() == ERR) { // disable buffering + disable DEL
+  if (cbreak() == ERR) { // disable { (buffering + disable DEL) }
     return false;
   }
 
-  if (noecho() == ERR) { // disable echo
+  if (noecho() == ERR) { // disable { echo }
     return false;
   }
 
-  if (nonl() == ERR) { // disable newline on input
+  if (nonl() == ERR) { // invisible { newline input }
     return false;
   }
 
-  if (keypad(stdscr, true) == ERR) { // enable keypads input
+  if (keypad(stdscr, true) == ERR) { // enable { keypads input }
     return false;
   }
 
-  if (curs_set(0) == ERR) { // invisible cursor
+  if (curs_set(0) == ERR) { // invisible { cursor }
     return false;
   }
 
@@ -83,9 +83,11 @@ void startGame(void)
       }
 
       // IN A NEAR FUTURE HANDLE THIS IN AN ARRAY OF ORDERS
-      if (key == KEY_LEFT || key == KEY_RIGHT)
-      {
-      // ORDER MOVE SHIP
+      if (key == KEY_LEFT) {
+        game.getPlayer().setOrder(MOVE_LEFT);
+      }
+      else if (key == KEY_RIGHT) {
+        game.getPlayer().setOrder(MOVE_RIGHT);
       }
     }
 
@@ -101,8 +103,6 @@ void startGame(void)
 
 int main(void)
 {
-  Game   game;
-
   srand(time(NULL));
   if (!initNcurses())
   {

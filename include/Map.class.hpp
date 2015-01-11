@@ -21,8 +21,8 @@ public:
 
   // getters + setters
 
-  Square&                   getSquare(const unsigned int x, const unsigned int y);
-  const Square&             getSquare(const unsigned int x, const unsigned int y) const;
+  Square&                   getSquare(const Pos pos);
+  const Square&             getSquare(const Pos pos) const;
 
   static const unsigned int X;
   static const unsigned int Y;

@@ -12,38 +12,33 @@
 
 #include "AEntity.class.hpp"
 
-AEntity::AEntity(void):
-	x(0), y(0), type("Undefined"), mhp(0), chp(0), speed(0), mspeed(0), dmg(0),
-	cooldown(0), mcd(0)
+AEntity::AEntity(const Pos pos, const std::string& type,
+  const unsigned int mhp, const unsigned int chp,
+  const unsigned int speed, const unsigned int mspeed,
+	const unsigned int dmg, const unsigned int cooldown, const unsigned int mcd) :
+  pos(pos)
 {
-	this->pos = Pos(x, y);
-	return;
+  this->type     = type;
+  this->mhp      = mhp;
+  this->chp      = chp;
+  this->speed    = speed;
+  this->mspeed   = mspeed;
+  this->dmg      = dmg;
+  this->cooldown = cooldown;
+  this->mcd      = mcd;
 }
 
-AEntity::AEntity(unsigned int x, unsigned int y,
-				 std::string type, unsigned int mhp,
-				 unsigned int chp, unsigned int speed, unsigned int mspeed,
-				 unsigned int dmg, unsigned int cooldown, unsigned int mcd):
-	x(x), y(y), type(type), mhp(mhp), chp(chp), speed(speed),
-	mspeed(mspeed), dmg(dmg), cooldown(cooldown), mcd(mcd)
+AEntity::AEntity(const AEntity& src) :
+  pos(src.pos)
 {
-	this->pos = Pos(x, y);
-	return;
-}
-
-AEntity::AEntity(AEntity const & src)
-{
-	this->x = src.getX();
-	this->y = src.getY();
-	this->type = src.getType();
-	this->mhp = src.getMHP();
-	this->chp = src.getCHP();
-	this->speed = src.getSpeed();
-	this->mspeed = src.getMSpeed();
-	this->dmg = src.getDmg();
-	this->cooldown = src.getCooldown();
-	this->mcd = src.getMCD();
-	this->pos = Pos(this->x, this->y);
+  this->type     = src.type;
+  this->mhp      = src.mhp;
+  this->chp      = src.chp;
+  this->speed    = src.speed;
+  this->mspeed   = src.mspeed;
+  this->dmg      = src.dmg;
+  this->cooldown = src.cooldown;
+  this->mcd      = src.mcd;
 	return;
 }
 
@@ -63,10 +58,8 @@ bool			AEntity::move(void)
 	{
 		if (this->speed == this->mspeed)
 		{
-			this->y++;
+			this->pos.y++;
 			this->speed = 0;
-			this->pos.setX(this->x);
-			this->pos.setY(this->y);
 			return true;
 		}
 	}
@@ -119,15 +112,41 @@ void			AEntity::refreshShoot(void)
 ** Getters
 */
 
-unsigned int	AEntity::getX(void) const
+const Pos&    AEntity::getPos(void) const
 {
-	return this->x;
+  return this->pos;
 }
 
-unsigned int	AEntity::getY(void) const
+Pos&          AEntity::getpos(void)
 {
-	return this->y;
+  return this->pos;
 }
+
+void          AEntity::setPos(const Pos& pos)
+{
+  this->pos = pos;
+}
+
+unsigned int  AEntity::getX(void) const
+{
+  return this->pos.x;
+}
+
+void          AEntity::setX(unsigned int x)
+{
+  this->pos.x = x;
+}
+
+unsigned int  AEntity::getY(void) const
+{
+  return this->pos.y;
+}
+
+void          AEntity::setY(unsigned int y)
+{
+  this->pos.y = y;
+}
+
 
 unsigned int	AEntity::getMHP(void) const
 {
@@ -171,13 +190,15 @@ std::string		AEntity::getType(void) const
 
 AEntity &		AEntity::operator=(AEntity const & src)
 {
-	this->x = src.getX();
-	this->y = src.getY();
-	this->type = src.getType();
-	this->mhp = src.getMHP();
-	this->chp = src.getCHP();
-	this->speed = src.getSpeed();
-	this->dmg = src.getDmg();
+  this->pos      = src.pos;
+  this->type     = src.type;
+  this->mhp      = src.mhp;
+  this->chp      = src.chp;
+  this->speed    = src.speed;
+  this->mspeed   = src.mspeed;
+  this->dmg      = src.dmg;
+  this->cooldown = src.cooldown;
+  this->mcd      = src.mcd;
 	return *this;
 }
 
