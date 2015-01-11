@@ -19,7 +19,7 @@
 
 const unsigned int Game::CYCLE_MAX = 10;
 const unsigned int Game::ENEMY_MAX = 8;
-const unsigned int Game::PROJECTILE_MAX = 1;
+const unsigned int Game::PROJECTILE_MAX = 10;
 const bool         Game::END       = false;
 
 Game::Game(void) :
@@ -118,6 +118,7 @@ bool               Game::frame(void)
     }
     this->_player.setOrder(NONE);
   }
+  //TEST
   this->spawnEnemy();
   for (unsigned int i = 0; i < this->_nb_enemy; i ++)
   {
