@@ -6,7 +6,7 @@
 //   By: vrey <vrey@student.42.fr>                  +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2015/01/10 12:41:39 by vrey              #+#    #+#             //
-//   Updated: 2015/01/10 16:21:32 by vrey             ###   ########.fr       //
+//   Updated: 2015/01/11 12:18:33 by vrey             ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -21,22 +21,19 @@ Enemy::Enemy(void): AEntity()
     return;
 }
 
-Enemy::Enemy(unsigned int x, unsigned int y, std::string type,
-			 unsigned int mhp, unsigned int chp, unsigned int speed,
-			 unsigned int mspeed, unsigned int dmg, unsigned int cooldown,
-			 unsigned int mcd):
-	AEntity()
+Enemy::Enemy(Pos const & pos): AEntity()
 {
-    this->x = x;
-    this->y = y;
-    this->type = type;
-    this->mhp = mhp;
-    this->chp = chp;
-    this->speed = speed;
-	this->mspeed = mspeed;
-    this->dmg = dmg;
-	this->cooldown = cooldown;
-    this->mcd = mcd;
+	this->pos = pos;
+    this->x = pos.getX();
+    this->y = pos.getY();
+    this->type = "Enemy";
+    this->mhp = 3;
+    this->chp = 3;
+    this->speed = 10;
+	this->mspeed = 10;
+    this->dmg = 0;
+	this->cooldown = 0;
+    this->mcd = 0;
     return;
 }
 

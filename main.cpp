@@ -4,6 +4,7 @@
 #include "Player.class.hpp"
 #include "Enemy.class.hpp"
 
+#include <ctime>
 #include <cstdlib>
 #include <cerrno>
 // extern "C"
@@ -88,6 +89,7 @@ void startGame(void)
       }
     }
 
+
     if (game.needRefresh())
     {
       (void)clear();
@@ -100,6 +102,7 @@ int main(void)
 {
   Game   game;
 
+  srand(time(NULL));
   if (!initNcurses())
   {
     std::cout << "Could not fully initialize ncurses" << std::endl;

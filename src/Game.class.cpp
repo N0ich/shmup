@@ -1,10 +1,12 @@
 #include "Game.class.hpp"
+#include "Pos.class.hpp"
 #include <ncurses.h>
+#include <cstdlib>
 
 // constructors + destructors
 
 const unsigned int Game::CYCLE_MAX = 10;
-const unsigned int Game::ENEMY_MAX = 20;
+const unsigned int Game::ENEMY_MAX = 10;
 const bool         Game::END       = false;
 
 Game::Game(void) :
@@ -67,21 +69,48 @@ bool               Game::frame(void)
   if (false) {
     return Game::END;
   }
+  
+  this->spawnEnemy();
   // DO ACTIONS
   this->updateCycle();
   return ~Game::END;
 }
 
 void               Game::spawnEnemy(void)
-{
-  Enemy*           enemy;
+{  Enemy *          enemy;
 
   if (this->_nb_enemy >= Game::ENEMY_MAX) {
-    return;
+	  return;
   }
-  enemy = new Enemy();
+
+  unsigned int n = 0;
+  unsigned int x;
+
+  for (x = 0; x < Map::X; ++x)
+  {
+	  if (&this->getMap().getSquare(x, 0).getEntity() == NULL) {
+		  ++n;
+	  }
+  }
+  if (n < 1)
+	  return;
+  unsigned int i;
+
+  x = 0;
+  for (i = rand() % n; i > 0;)
+  {
+	  if (&this->getMap().getSquare(x, 0).getEntity() == NULL) {
+		  i--;
+	  }
+	  if (++x == Map::X) {
+		  x = 0;
+	  }
+  }
+
+  enemy = new Enemy(Pos(x, 0));
   this->_enemy[this->_nb_enemy++] = enemy;
-  // this->getMap().getSquare(x, y).setEntity(*enemy);
+  this->getMap().getSquare(x, 0).setEntity(*enemy);
+  this->_refresh = true;
 }
 
 void               Game::deleteEnemy(Enemy& enemy)
