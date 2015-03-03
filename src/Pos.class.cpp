@@ -12,17 +12,13 @@
 
 #include "Pos.class.hpp"
 
-Pos::Pos(const unsigned int x, const unsigned int y)
-{
-  this->x = x;
-  this->y = y;
-}
+Pos::Pos(const unsigned int x, const unsigned int y) :
+  x(x), y(y)
+{ }
 
-Pos::Pos(const Pos& pos)
-{
-  this->x = pos.x;
-  this->y = pos.y;
-}
+Pos::Pos(const Pos& src) :
+  x(src.x), y(src.y)
+{ }
 
 Pos::~Pos(void)
 {

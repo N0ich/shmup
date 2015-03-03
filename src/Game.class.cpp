@@ -18,12 +18,12 @@
 
 const unsigned int Game::CYCLE_MAX      = 10;
 const unsigned int Game::ENEMY_MAX      = 15;
-const unsigned int Game::PROJECTILE_MAX = 6;
+const unsigned int Game::PROJECTILE_MAX = 4;
 const bool         Game::END            = false;
 
 Game::Game(void) :
 	_map(), _cycle(0), _refresh(true), _score(0), _player(),
-	_nb_enemy(0), _nb_projectile(0)
+	_nb_enemy(0), _nb_projectile(0), _enemy(NULL), _projectile(NULL)
 {
   this->_enemy = new Enemy*[Game::ENEMY_MAX];
   for (unsigned int n = 0; n < Game::ENEMY_MAX; ++n) {
@@ -33,7 +33,7 @@ Game::Game(void) :
   this->_projectile = new Projectile*[Game::PROJECTILE_MAX];
   for (unsigned int k = 0; k < Game::PROJECTILE_MAX; ++k) {
     this->_projectile[k] = NULL;
-  } 
+  }
 
   this->getMap().getSquare(this->_player.getPos()).setEntity(&this->_player);
 
@@ -44,7 +44,7 @@ Game::Game(void) :
 
 Game::Game(const Game& src) :
   _map(), _cycle(0), _refresh(true), _score(0), _player(),
-  _nb_enemy(0), _nb_projectile(0)
+  _nb_enemy(0), _nb_projectile(0), _enemy(NULL), _projectile(NULL)
 {
   (void)src;
   this->_projectile = new Projectile*[Game::PROJECTILE_MAX];
@@ -174,7 +174,7 @@ bool               Game::frame(void)
     }
   }
 
-   this->spawnProjectile();
+  this->spawnProjectile();
   for (unsigned int j = 0; j < this->_nb_projectile; j ++)
   {
     Projectile*  projectile = this->getProjectile(j);

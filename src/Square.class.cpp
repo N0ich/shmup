@@ -3,18 +3,16 @@
 // CONSTRUCTORS + DESTRUCTORS
 
 Square::Square(const Pos& pos) :
-  pos(pos)
+  pos(pos), _entity(NULL)
 {
-  this->_entity = NULL;
   #ifdef DEBUG
   std::cout << "[CONSTRUCTED] Square(" << this->pos.x << "," << this->pos.y << ")" << std::endl;
   #endif
 }
 
 Square::Square(const Square& src) :
-  pos(src.pos)
+  pos(src.pos), _entity(NULL)
 {
-  this->_entity = NULL;
   #ifdef DEBUG
   std::cout << "[CONSTRUCTED] Square(" << this->pos.x << "," << this->pos.y << ")" << std::endl;
   #endif
@@ -30,8 +28,8 @@ Square::~Square(void)
 // OPERATORS
 Square&               Square::operator=(const Square& src)
 {
-  (void)src;
-  return *this;  
+  static_cast<void>(src);
+  return *this;
 }
 
 // FUNCTIONS
@@ -42,7 +40,7 @@ void                  Square::output(WINDOW *win) const
     this->getEntity()->output(win);
   }
   else {
-    (void)waddch(win, ' ');
+    static_cast<void>(waddch(win, ' '));
   }
 }
 

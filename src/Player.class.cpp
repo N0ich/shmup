@@ -22,10 +22,8 @@ const short  Player::COLOR_PAIR = 1;
 // }
 
 Player::Player(void) :
-    AEntity(Pos(Map::X / 2, Map::Y - 1), "Player", 3, 3, 10, 10, 0, 0, 0)
-{
-    this->_order = NONE;
-}
+  AEntity(Pos(Map::X / 2, Map::Y - 1), "Player", 3, 3, 10, 10, 0, 0, 0), _order(NONE)
+{ }
 
 // Player::Player(unsigned int x, unsigned int y, std::string type,
 // 			   unsigned int mhp, unsigned int chp, unsigned int speed,
@@ -48,10 +46,8 @@ Player::Player(void) :
 // }
 
 Player::Player(const Player& src) :
-    AEntity(src.pos, src.type, src.mhp, src.chp, src.speed, src.mspeed, src.dmg, src.cooldown, src.mcd)
-{
-    this->_order = NONE;
-}
+  AEntity(src.pos, src.type, src.mhp, src.chp, src.speed, src.mspeed, src.dmg, src.cooldown, src.mcd), _order(NONE)
+{ }
 
 Player::~Player(void)
 {

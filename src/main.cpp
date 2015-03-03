@@ -20,8 +20,6 @@ typedef void (*f_atexit)(void);
 
 bool initNcurses(WINDOW** score_win, WINDOW** game_win)
 {
-
-
   if (initscr() == NULL) {
     return false;
   }
@@ -89,7 +87,7 @@ void startGame(WINDOW* score_win, WINDOW* game_win)
   {
     { // GAME HANDLER
       key = wgetch(stdscr);
-      if (key == KEY_END || key == KEY_EXIT) {
+      if (key == 27 || key == KEY_END || key == KEY_EXIT) {
         exit(0);
       }
 

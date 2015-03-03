@@ -14,32 +14,18 @@
 #include <cstdlib>
 
 const short  Enemy::COLOR_PAIR = 2;
-
-// Enemy::Enemy(void): AEntity()
-// {
-// 	this->type = "Enemy";
-//     return;
-// }
+const char   Enemy::_SB[5]      = { '*', '@', '#', '!', '%' };
 
 Enemy::Enemy(const Pos& pos) :
-    AEntity(pos, "Enemy", 3, 3, 0, 5 + (rand() % 15), 0, 0, 0)
-{
-  const char sb[5] = { '*', '@', '#', '!', '%' };
-
-  this->_char = sb[rand() & 5];
-}
+  AEntity(pos, "Enemy", 3, 3, 0, 5 + (rand() % 15), 0, 0, 0), _char(Enemy::_SB[rand() & 5])
+{ }
 
 Enemy::Enemy(const Enemy& src) :
-    AEntity(src.pos, src.type, src.mhp, src.chp, src.speed, src.mspeed, src.dmg, src.cooldown, src.mcd)
-{
-  const char sb[5] = { '*', '@', '#', '!', '%' };
-
-  this->_char = sb[rand() & 5];
-}
+  AEntity(src.pos, src.type, src.mhp, src.chp, src.speed, src.mspeed, src.dmg, src.cooldown, src.mcd), _char(Enemy::_SB[rand() & 5])
+{ }
 
 Enemy::~Enemy(void)
-{
-}
+{ }
 
 void         Enemy::output(WINDOW *win) const
 {

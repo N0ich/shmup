@@ -15,7 +15,7 @@ CC = g++
 NAME = ft_retro
 
 SRC = \
-		main.cpp \
+		src/main.cpp \
 		src/AEntity.class.cpp \
 		src/Enemy.class.cpp \
 		src/Game.class.cpp \
@@ -29,7 +29,7 @@ INCL = include/ -lncurses
 
 OBJ = $(SRC:.cpp=.opp)
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -ansi -Wpedantic -Weffc++
 
 all: $(NAME)
 

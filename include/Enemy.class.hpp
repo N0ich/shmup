@@ -18,10 +18,10 @@
 class Enemy: public AEntity
 {
 public:
-	Enemy(void);
-	Enemy(Pos const & pos);
-	Enemy(Enemy const & src);
-	~Enemy(void);
+  Enemy(void);
+  Enemy(Pos const & pos);
+  Enemy(Enemy const & src);
+  ~Enemy(void);
 
   Enemy &              operator=(Enemy const &);
 
@@ -30,6 +30,7 @@ public:
   static const short   COLOR_PAIR;
 private:
   char                 _char;
+  static const char    _SB[5];
 };
 
 

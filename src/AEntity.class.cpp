@@ -15,32 +15,13 @@
 AEntity::AEntity(const Pos pos, const std::string& type,
   const unsigned int mhp, const unsigned int chp,
   const unsigned int speed, const unsigned int mspeed,
-	const unsigned int dmg, const unsigned int cooldown, const unsigned int mcd) :
-  pos(pos)
-{
-  this->type     = type;
-  this->mhp      = mhp;
-  this->chp      = chp;
-  this->speed    = speed;
-  this->mspeed   = mspeed;
-  this->dmg      = dmg;
-  this->cooldown = cooldown;
-  this->mcd      = mcd;
-}
+  const unsigned int dmg, const unsigned int cooldown, const unsigned int mcd) :
+  pos(pos), type(type), mhp(mhp), chp(chp), speed(speed), mspeed(mspeed), dmg(dmg), cooldown(cooldown), mcd(mcd)
+{ }
 
 AEntity::AEntity(const AEntity& src) :
-  pos(src.pos)
-{
-  this->type     = src.type;
-  this->mhp      = src.mhp;
-  this->chp      = src.chp;
-  this->speed    = src.speed;
-  this->mspeed   = src.mspeed;
-  this->dmg      = src.dmg;
-  this->cooldown = src.cooldown;
-  this->mcd      = src.mcd;
-	return;
-}
+  pos(src.pos), type(src.type), mhp(src.mhp), chp(src.chp), speed(src.speed), mspeed(src.mspeed), dmg(src.dmg), cooldown(src.cooldown), mcd(src.mcd)
+{ }
 
 /*
 ** Actions
@@ -150,17 +131,17 @@ void          AEntity::setY(unsigned int y)
 
 unsigned int	AEntity::getMHP(void) const
 {
-	return this->mhp;
+  return this->mhp;
 }
 
 unsigned int	AEntity::getCHP(void) const
 {
-	return this->chp;
+  return this->chp;
 }
 
 unsigned int	AEntity::getSpeed(void) const
 {
-	return this->speed;
+  return this->speed;
 }
 
 unsigned int	AEntity::getMSpeed(void) const
